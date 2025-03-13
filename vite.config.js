@@ -8,8 +8,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    server: {
-        host: true, // Agar bisa diakses dari HP
-        port: 5173, // Port untuk Vite
-    },
+    // server: {
+    //     host: true, // Agar bisa diakses dari HP
+    //     port: 5173, // Port untuk Vite
+    // },
 });

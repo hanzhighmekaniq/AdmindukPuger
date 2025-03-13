@@ -28,7 +28,7 @@
 
 
 
-<body class=" ">
+<body class="">
     <nav class="flex justify-center">
         <div class=" bg-white fixed w-full z-20 top-0 flex justify-center ">
             <div class="container">
