@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Ektp;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -17,14 +18,19 @@ class DatabaseSeeder extends Seeder
     {
 
         User::create([
-            'name' => 'Admin',
+            'name' => 'user1',
+            'role' => 'user',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('12'),
+            'address' => 'Jl, MH. Thamrin'
         ]);
-        User::create([
-            'name' => 'Hanz',
-            'email' => 'hanzslurrr@gmail.com',
-            'password' => Hash::make('hanz123'),
+
+        Ektp::create([
+            "kk" => "misalnya_kk.jpg",
+            "form" => "misalnya_form.jpg",
+            "user_id" => 1
         ]);
+
+
     }
 }
