@@ -7,7 +7,7 @@
         <div class="flex justify-end space-x-2">
             <div class="flex justify-center items-center">
 
-                <select id="status"
+                <select id="layanan"
                     class="border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-300 block w-44 p-2.5">
                     <option selectedg value="dashboard">Layanan</option>
                     <option value="settings">Settings</option>
@@ -72,23 +72,57 @@
                                 02-02-2025
                             </td>
                             <td class="text-center px-6 py-4">
-                                <button id="dropstatus" data-dropdown-toggle="dropdown-layanan"
-                                    class="text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm bg-green-400 px-2 py-1 text-center inline-flex items-center"
-                                    type="button">Pending<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 4 4 4-4" />
-                                    </svg>
-                                </button>
+                                <select id="status-pilih"
+                                    class="text-black font-medium rounded-lg text-sm px-2 py-1 text-center inline-flex items-center appearance-none focus:outline-none"
+                                    onchange="ubahWarna(this)">
+                                    <option value="Disetujui">Disetujui</option>
+                                    <option value="Proses">Proses</option>
+                                    <option value="Masuk">Masuk</option>
+                                    <option value="Ditolak">Ditolak</option>
+                                </select>
                             </td>
-                            <td class="text-center px-6 py-4">
-                                <button>
-                                    <img src="{{ asset('img/edit-icon.png') }}" alt="">
-                                </button>
-                                <button>
-                                    <img src="{{ asset('img/delete-icon.png') }}" alt="">
 
-                                </button>
+                            {{-- <script>
+                                function ubahWarna(select) {
+                                    let warna = {
+                                        Disetujui: "bg-[#CAECD5] text-[#26914A]",
+                                        Proses: "bg-[#FFD0A1] text-[#FF6D12]",
+                                        Masuk: "bg-[#D7EBFF] text-[#2C96F2]",
+                                        Ditolak: "bg-[#FEBDBD] text-[#FF2020]"
+                                    };
+
+                                    // Hapus semua warna sebelumnya
+                                    select.classList.remove("bg-[#CAECD5]", "text-[#26914A]",
+                                        "bg-[#FFD0A1]", "text-[#FF6D12]",
+                                        "bg-[#D7EBFF]", "text-[#2C96F2]",
+                                        "bg-[#FEBDBD]", "text-[#FF2020]");
+
+                                    // Tambahkan warna sesuai dengan pilihan yang dipilih
+                                    let warnaBaru = warna[select.value];
+                                    warnaBaru.split(" ").forEach(cls => select.classList.add(cls));
+                                }
+
+                                // Set warna awal berdasarkan nilai default
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    ubahWarna(document.getElementById("status-pilih"));
+                                });
+                            </script> --}}
+
+
+
+
+
+                            <td class="text-center items-center px-6 py-4">
+                                <div class="flex justify-center space-x-2   ">
+
+                                    <button class="p-1">
+                                        <img src="{{ asset('img/edit-icon.png') }}" alt="">
+                                    </button>
+                                    <button class="p-1">
+                                        <img src="{{ asset('img/delete-icon.png') }}" alt="">
+
+                                    </button>
+                                </div>
                             </td>
                         </tr>
 
