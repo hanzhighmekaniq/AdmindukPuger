@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function ektp(){
+        return $this->hasMany(Ektp::class);
+    }
+    public function newkk(){
+        return $this->hasMany(FamilyCard::class);
+    }
+    public function diecertif(){
+        return $this->hasMany(DieCertif::class);
+    }
+    public function familycard(){
+        return $this->hasMany(FamilyCard::class);
+    }
 }
