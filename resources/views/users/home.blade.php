@@ -2,7 +2,8 @@
 
     <div class="md:space-y-14 ">
 
-        <div id="beranda" class="relative md:h-screen w-screen flex justify-center items-center bg-cover bg-center py-24 sm:py-14 md:py-0"
+        <div id="beranda"
+            class="relative md:h-screen w-screen flex justify-center items-center bg-cover bg-center py-24 sm:py-14 md:py-0"
             style="background-image: url('{{ asset('img/bg-atas.png') }}');">
             <div class="container">
                 <div class="grid grid-cols-1 xl:grid-cols-2 justify-center md:px-10">
@@ -38,7 +39,7 @@
                         <img class="lg:w-full lg:h-auto h-30 " src="{{ asset('img/visi-misi.png') }}" alt="">
                     </div>
                     <div class="col-span-7 flex items-center">
-                        <div class=" py-20 space-y-10 ">
+                        <div class="py-4 md:py-20 space-y-10 ">
                             <p class="text-4xl md:text-5xl poppins-bold">Visi & Misi Kecamatan Puger</p>
                             <p class="text-2xl md:text-4xl ">Mewujudkan Kecamatan Puger yang maju, mandiri, dan
                                 sejahtera
@@ -46,19 +47,22 @@
                                 berwawasan luas.</p>
                             <div class="space-y-10">
                                 <div class="flex items-center gap-2">
-                                    <img src="{{ asset('img/icon-centang.png') }}" alt="" class="w-auto h-8 md:h-10">
+                                    <img src="{{ asset('img/icon-centang.png') }}" alt=""
+                                        class="w-auto h-8 md:h-10">
                                     <p class="text-base md:text-2xl">Menyediakan layanan administrasi kependudukan yang
                                         cepat, mudah.
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <img src="{{ asset('img/icon-centang.png') }}" alt="" class="w-auto h-8 md:h-10">
+                                    <img src="{{ asset('img/icon-centang.png') }}" alt=""
+                                        class="w-auto h-8 md:h-10">
                                     <p class="text-base md:text-2xl">Menyediakan layanan administrasi kependudukan yang
                                         cepat, mudah.
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <img src="{{ asset('img/icon-centang.png') }}" alt="" class="w-auto h-8 md:h-10">
+                                    <img src="{{ asset('img/icon-centang.png') }}" alt=""
+                                        class="w-auto h-8 md:h-10">
                                     <p class="text-base md:text-2xl">Menyediakan layanan administrasi kependudukan yang
                                         cepat, mudah.
                                     </p>
@@ -72,7 +76,8 @@
             </div>
         </div>
 
-        <div id="beranda" class="flex md:py-14 justify-center relative bg-cover bg-center w-screen  object-contain"
+        <div id="beranda"
+            class="flex md:py-14 py-10 justify-center relative bg-cover bg-center w-screen  object-contain"
             style="background-image: url('{{ asset('img/bg-bawah.png') }}');">
             <div class="container">
                 <div class="space-y-10">
@@ -87,9 +92,9 @@
                             peran penting dalam administrasi kependudukan dan pelayanan masyarakat.</p>
                     </div>
                 </div>
-                <div class="py-20 lg:px-10">
+                <div class="pt-20 lg:px-10">
 
-                    <div class="swiper mySwiper ">
+                    <div class="swiper mySwiper max-w-lg lg:max-w-none">
                         <div class="swiper-wrapper md:py-28">
                             <!-- Slide 1 -->
                             <div
@@ -214,11 +219,11 @@
                                         disableOnInteraction: false,
                                     },
                                     breakpoints: {
-                                        1024: { // Sama seperti md di Tailwind (min-width: 768px)
-                                            slidesPerView: 2, // Tampilkan 2 slide jika layar md ke atas
+                                        1024: {
+                                            slidesPerView: 2,
                                         },
-                                        1280: { // Sama seperti xl di Tailwind (min-width: 1280px)
-                                            slidesPerView: 3, // Tampilkan 3 slide jika layar xl ke atas
+                                        1280: {
+                                            slidesPerView: 3,
                                         }
                                     }
                                 });
