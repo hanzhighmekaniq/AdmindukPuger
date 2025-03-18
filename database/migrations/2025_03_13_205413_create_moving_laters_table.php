@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('maried_certificate');
             $table->string('moving_later_certificate');
             $table->string('consent_partner');
+            $table->string('status')->nullable();
+            $table->string('notes')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

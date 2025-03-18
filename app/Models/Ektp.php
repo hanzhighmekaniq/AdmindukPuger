@@ -12,7 +12,9 @@ class Ektp extends Model
     public $fillable = [
         "kk",
         "form",
-        "user_id"
+        "user_id",
+        "status",
+        "notes"
     ];
 
     public function user(){

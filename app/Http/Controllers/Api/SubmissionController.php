@@ -39,6 +39,7 @@ class SubmissionController extends Controller
             $ktpData = $req->all();
             $ktpData['kk'] = $kkPath;
             $ktpData['form'] = $formPath;
+            $ktpData['status'] = "proses";
             $ktp = Ektp::create($ktpData);
             return response()->json([
                 "status" => 200,
@@ -64,6 +65,7 @@ public function newkk(Request $req){
         $imagePath = null;
         $formPath = null;
         $mariedcertifPath = null;
+        $status = "proses";
 
         if ($req->hasFile('ktp')) {
             $imagePath = $req->file('ktp')->store('images', 'public');
@@ -78,6 +80,7 @@ public function newkk(Request $req){
         $data['ktp'] = $imagePath;
         $data['form'] = $formPath;
         $data['maried_certificated'] = $mariedcertifPath;
+        $data['status'] = $status;
         $ktp = FamilyCard::create($data);
         return response()->json([
             "status" => 200,
@@ -102,7 +105,8 @@ public function birthcertif(Request $request){
             "new_kk" => "required|file:max:20480",
             "witness1_ktp" => "required|file:max:20480",
             "witness2_ktp" => "required|file:max:20480",
-            "user_id" => "required"
+            "user_id" => "required",
+            "status" => "required"
         ]);
         $formpath = null;
         $mom_ktp_path=null;
@@ -150,6 +154,7 @@ public function birthcertif(Request $request){
         $data['new_kk'] = $newkk_path;
         $data['witness1_ktp'] = $witness1_path;
         $data['witness2_ktp'] = $witness2_path;
+        $data['status'] = "proses";
         $newbithsertif = BirthCertif::create($data);
         return response()->json([
             "status" => 200,
@@ -202,6 +207,7 @@ try {
     $data['maried_certificate'] = $mariedcertifPath;
     $data['kk'] = $kkPath;
     $data['ktp'] = $ktpPath;
+    $data['status'] = "proses";
     $diecertif = DieCertif::create($data);
     return response()->json([
         "status" => 200,
@@ -255,6 +261,7 @@ try {
     $data['maried_certificate'] = $mariedPath;
     $data['moving_later_certificate'] = $movingPath;
     $data['consent_partner'] = $consentPath;
+    $data['status'] = "proses";
     $movingletter = MovingLater::create($data);
 
     return response()->json([

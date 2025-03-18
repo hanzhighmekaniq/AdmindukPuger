@@ -15,7 +15,9 @@ class MovingLater extends Model
         'maried_certificate',
         'moving_later_certificate',
         'consent_partner',
-        'user_id'
+        'user_id',
+        "notes",
+        "status"
     ];
 
     public function user(){
