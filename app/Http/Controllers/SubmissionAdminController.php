@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class FormController extends Controller
+class SubmissionAdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.formulir');
+        return view('admin.submission');
     }
 
     /**

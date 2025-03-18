@@ -1,34 +1,42 @@
 <x-AppLayout>
     <div class="pb-8 lg:py-0 lg:fixed lg:top-4 z-[50]">
-        <p class="text-3xl poppins-bold pb-1">Formulir</p>
-        <p class="poppins-regular">Ini adalah data formulir</p>
+        <p class="text-3xl poppins-bold pb-1">Pengajuan</p>
+        <p class="poppins-regular">Ini adalah semua data pengajuan</p>
     </div>
     <div class="space-y-2">
-        <div class="flex justify-end space-x-2">
-            <div class="flex justify-center items-center">
-
+        <div class="md:flex justify-end space-x-0 space-y-1 md:space-y-0 md:space-x-1">
+            <div class="flex justify-end items-center flex-1 md:flex-grow-0">
                 <select id="layanan"
-                    class="border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-300 block w-44 p-2.5">
-                    <option selectedg value="dashboard">Layanan</option>
+                    class="border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-300 block w-full sm:max-w-60 md:max-w-none md:w-auto p-2.5">
+                    <option selected value="dashboard">Layanan</option>
                     <option value="settings">Settings</option>
                     <option value="earnings">Earnings</option>
                     <option value="signout">Sign out</option>
                 </select>
-
             </div>
-            <div class="flex justify-center items-center">
 
+            <div class="flex justify-end items-center flex-1 md:flex-grow-0">
                 <select id="status"
-                    class="border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-300 block w-44 p-2.5">
+                    class="border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-300 block w-full sm:max-w-60 md:max-w-none md:w-auto p-2.5">
                     <option value="dashboard">Dashboard</option>
                     <option value="settings">Settings</option>
                     <option value="earnings">Earnings</option>
                     <option value="signout">Sign out</option>
                 </select>
-
             </div>
 
+            <div class="flex justify-end items-center ">
+                <div class="flex items-center sm:max-w-60 max-w-none w-full ">
+                    <label for="simple-search" class="sr-only">Search</label>
+                    <div class="relative w-full">
+                        <input type="text" id="simple-search"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="Pencarian..." required />
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div class="shadow-md shadow-gray-400 w-full h-auto bg-gray-200 rounded-sm p-4">
             <div class="pb-2">
                 <p class="poppins-semibold text-[#06275A] text-xl pl-2">Daftar Pengajuan</p>
@@ -38,7 +46,7 @@
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                ID Pengajuan
+                                ID
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Pemohon
@@ -73,8 +81,7 @@
                             </td>
                             <td class="text-center px-6 py-4">
                                 <select id="status-pilih"
-                                    class="text-black font-medium rounded-lg text-sm px-2 py-1 text-center inline-flex items-center appearance-none focus:outline-none"
-                                    onchange="ubahWarna(this)">
+                                    class="text-black font-medium rounded-lg text-xs md:text-sm px-2 py-1 text-center inline-flex items-center appearance-none focus:outline-none">
                                     <option value="Disetujui">Disetujui</option>
                                     <option value="Proses">Proses</option>
                                     <option value="Masuk">Masuk</option>
@@ -82,45 +89,16 @@
                                 </select>
                             </td>
 
-                            {{-- <script>
-                                function ubahWarna(select) {
-                                    let warna = {
-                                        Disetujui: "bg-[#CAECD5] text-[#26914A]",
-                                        Proses: "bg-[#FFD0A1] text-[#FF6D12]",
-                                        Masuk: "bg-[#D7EBFF] text-[#2C96F2]",
-                                        Ditolak: "bg-[#FEBDBD] text-[#FF2020]"
-                                    };
-
-                                    // Hapus semua warna sebelumnya
-                                    select.classList.remove("bg-[#CAECD5]", "text-[#26914A]",
-                                        "bg-[#FFD0A1]", "text-[#FF6D12]",
-                                        "bg-[#D7EBFF]", "text-[#2C96F2]",
-                                        "bg-[#FEBDBD]", "text-[#FF2020]");
-
-                                    // Tambahkan warna sesuai dengan pilihan yang dipilih
-                                    let warnaBaru = warna[select.value];
-                                    warnaBaru.split(" ").forEach(cls => select.classList.add(cls));
-                                }
-
-                                // Set warna awal berdasarkan nilai default
-                                document.addEventListener("DOMContentLoaded", function() {
-                                    ubahWarna(document.getElementById("status-pilih"));
-                                });
-                            </script> --}}
-
-
-
-
-
                             <td class="text-center items-center px-6 py-4">
-                                <div class="flex justify-center space-x-2   ">
+                                <div class="flex justify-center    ">
 
-                                    <button class="p-1">
-                                        <img src="{{ asset('img/edit-icon.png') }}" alt="">
+                                    <button class="p-1 flex-shrink-0">
+                                        <img class="w-auto h-6 lg:h-7 object-contain"
+                                            src="{{ asset('img/edit-icon.png') }}" alt="Edit">
                                     </button>
-                                    <button class="p-1">
-                                        <img src="{{ asset('img/delete-icon.png') }}" alt="">
-
+                                    <button class="p-1 flex-shrink-0">
+                                        <img class="w-auto h-5 lg:h-6 object-contain"
+                                            src="{{ asset('img/delete-icon.png') }}" alt="Delete">
                                     </button>
                                 </div>
                             </td>
