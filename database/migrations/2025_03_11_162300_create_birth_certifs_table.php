@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('new_kk');
             $table->string('witness1_ktp');
             $table->string('witness2_ktp');
+            $table->string('status')->nullable();
+            $table->string('notes')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

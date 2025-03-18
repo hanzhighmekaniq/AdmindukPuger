@@ -17,7 +17,9 @@ class BirthCertif extends Model
         "new_kk",
         "witness1_ktp",
         "witness2_ktp",
-        "user_id"
+        "user_id",
+        "status",
+        "note",
 
 
     ];

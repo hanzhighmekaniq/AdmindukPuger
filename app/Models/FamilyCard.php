@@ -12,7 +12,9 @@ class FamilyCard extends Model
         "ktp",
         "maried_certificated",
         "form",
-        "user_id"
+        "user_id",
+        "status",
+        "notes"
     ];
 
     public function user(){

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DocsController;
 use App\Http\Controllers\DocsController as ControllersDocsController;
 use Illuminate\Http\Request;
@@ -7,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\Api;
 use App\Http\Controllers\Api\SubmissionController;
 use App\Models\Ektp;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,14 @@ use App\Models\Ektp;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::post('/email/resend', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return response()->json(['message' => 'Verification email resent']);
+})->middleware(['auth'])->name('verification.resend');
+
+Route::post('register', [AuthController::class,'register'])->name('user.register');
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
