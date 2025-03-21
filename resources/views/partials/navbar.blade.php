@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full bg-white">
+<nav class="fixed top-0 z-20 w-full bg-white">
     <div class="px-3 h-24 items-center flex justify-between py-4 lg:px-5 lg:pl-12">
         <div class="flex items-center justify-center rtl:justify-center">
             <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
@@ -80,3 +80,4 @@
         </div>
     </div>
 </nav>
+

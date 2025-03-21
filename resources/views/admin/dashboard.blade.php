@@ -34,6 +34,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="flex justify-center pt-8 ">
                 <div class="shadow-md shadow-gray-400 w-full h-auto bg-gray-200 rounded-sm p-4">
                     <div class="pb-2">
@@ -110,7 +111,6 @@
 
                             </div>
                         </div>
-
 
                     </div>
                 </div>

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Ektp;
+use App\Models\FamilyCard;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +42,12 @@ class DatabaseSeeder extends Seeder
 
         Ektp::create([
             "kk" => "misalnya_kk.jpg",
+            "form" => "misalnya_form.jpg",
+            "user_id" => 1
+        ]);
+        FamilyCard::create([
+            "ktp" => "misalnya_kk.jpg",
+            "maried_certificated" => "misalnya_kk.jpg",
             "form" => "misalnya_form.jpg",
             "user_id" => 1
         ]);

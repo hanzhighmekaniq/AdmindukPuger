@@ -9,6 +9,7 @@ class Document extends Model
 {
     use HasFactory;
     public $fillable = [
-        "name"
+        "name",
+        "location"
     ];
 }
