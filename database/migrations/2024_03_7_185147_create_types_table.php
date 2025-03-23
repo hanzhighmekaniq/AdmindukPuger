@@ -11,17 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ektps', function (Blueprint $table) {
+        Schema::create('types', function (Blueprint $table) {
             $table->id();
-            $table->string('type')->default('KTP');
             $table->string('name');
-            $table->string('kk');
-            $table->string('form');
-            $table->foreignId('submission_id')
-                ->nullable()
-                ->constrained('submissions')
-                ->onDelete('set null')
-                ->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ektps');
+        Schema::dropIfExists('types');
     }
 };

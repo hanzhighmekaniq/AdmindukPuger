@@ -57,15 +57,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php $no = ($paginatedSubmissions->currentPage() - 1) * $paginatedSubmissions->perPage() + 1; @endphp
+                        @php $no = ($submissions->currentPage() - 1) * $submissions->perPage() + 1; @endphp
 
-                        @forelse($paginatedSubmissions as $submission)
+                        @forelse($submissions as $submission)
                             <tr class="bg-white border-b border-gray-200">
                                 <td class="px-6 py-4">{{ $no++ }}</td>
-                                <td class="px-6 py-4">{{ $submission->user->name ?? 'Tidak Diketahui' }}</td>
-                                <td class="px-6 py-4">{{ $submission->type }}</td>
+                                <td class="px-6 py-4">{{ $submission->name ?? 'Tidak Diketahui' }}</td>
+                                <td class="px-6 py-4">{{ $submission->type->name ?? 'Tidak Diketahui' }}</td>
+
                                 <td class="text-center px-6 py-4">
-                                    {{ \Carbon\Carbon::parse($submission->created_at)->format('d-m-Y') }}</td>
+                                    {{ \Carbon\Carbon::parse($submission->created_at)->format('d-m-Y') }}
+                                </td>
                                 <td class="text-center px-6 py-4">
                                     <span
                                         class="px-2 py-1 rounded-lg text-xs font-medium
@@ -86,10 +88,11 @@
                     </tbody>
                 </table>
 
-                <!-- Link Pagination -->
+                <!-- Pagination -->
                 <div class="mt-4">
-                    {{ $paginatedSubmissions->links() }}
+                    {{ $submissions->links() }}
                 </div>
+
 
             </div>
 

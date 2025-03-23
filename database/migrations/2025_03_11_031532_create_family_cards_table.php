@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('family_cards', function (Blueprint $table) {
             $table->id();
+            $table->string('type')->default('Kartu Keluarga');
             $table->string('name');
             $table->string('ktp');
             $table->string('maried_certificated');
             $table->string('form');
-            $table->string('status')->nullable();
-            $table->string('notes')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
+            $table->foreignId('submission_id')
+                ->nullable()
+                ->constrained('submissions')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
         });
     }
 

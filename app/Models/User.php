@@ -4,11 +4,13 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -45,16 +47,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function ektp(){
-        return $this->hasMany(Ektp::class);
-    }
-    public function newkk(){
-        return $this->hasMany(FamilyCard::class);
-    }
-    public function diecertif(){
-        return $this->hasMany(DieCertif::class);
-    }
-    public function familycard(){
-        return $this->hasMany(FamilyCard::class);
+    public function users(): HasMany
+    {
+        return $this->hasMany(Submission::class, 'user_id', 'id'); // Menentukan foreign key dan local key
     }
 }

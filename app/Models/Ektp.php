@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Ektp extends Model
 {
@@ -13,13 +14,12 @@ class Ektp extends Model
         "kk",
         "name",
         "form",
-        "user_id",
-        "status",
-        "notes",
-        
+        "submission_id",
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function submission(): BelongsTo
+    {
+        return $this->belongsTo(submission::class, 'submission_id', 'id'); // Menentukan foreign key dan local key
     }
+
 }
