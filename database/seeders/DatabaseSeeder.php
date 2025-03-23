@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\DieCertif;
 use App\Models\Ektp;
 use App\Models\FamilyCard;
 use App\Models\Submission;
@@ -45,6 +46,7 @@ class DatabaseSeeder extends Seeder
         Type::create([
             "name" => "KTP",
         ]);
+
         Type::create([
             "name" => "Akta Kelahiran",
         ]);
