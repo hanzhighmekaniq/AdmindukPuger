@@ -16,6 +16,7 @@
             </li>
 
             <li>
+
                 <a href="{{ route('submission.index') }}"
                     class="flex items-center p-2 rounded-lg group
                           {{ request()->is('submission*') ? 'bg-[#C3E9FF] text-blue-900' : 'text-gray-900 hover:bg-[#C3E9FF]' }}">

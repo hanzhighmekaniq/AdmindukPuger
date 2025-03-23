@@ -9,7 +9,6 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SubmissionAdminController;
 
 
-// ADMIN VIEW
 Route::middleware('auth')->group(function () {
 
     // DASHBOARD ADMIN

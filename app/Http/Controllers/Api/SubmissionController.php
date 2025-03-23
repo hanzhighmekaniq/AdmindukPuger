@@ -8,6 +8,7 @@ use App\Models\DieCertif;
 use App\Models\Ektp;
 use App\Models\FamilyCard;
 use App\Models\MovingLater;
+use App\Models\MovingLetter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,7 +40,7 @@ class SubmissionController extends Controller
             $ktpData = $req->all();
             $ktpData['kk'] = $kkPath;
             $ktpData['form'] = $formPath;
-            $ktpData['status'] = "proses";
+            $ktpData['status'] = "Diproses";
             $ktp = Ektp::create($ktpData);
             return response()->json([
                 "status" => 200,
@@ -65,7 +66,7 @@ public function newkk(Request $req){
         $imagePath = null;
         $formPath = null;
         $mariedcertifPath = null;
-        $status = "proses";
+        $status = "Diproses";
 
         if ($req->hasFile('ktp')) {
             $imagePath = $req->file('ktp')->store('images', 'public');
@@ -108,7 +109,7 @@ public function birthcertif(Request $request){
             "user_id" => "required",
             "status" => "required"
         ]);
-        $formpath = null;
+        $formPath = null;
         $mom_ktp_path=null;
         $dad_ktp_path = null;
         $mariedcertifPath = null;
@@ -116,6 +117,7 @@ public function birthcertif(Request $request){
         $newkk_path = null;
         $witness1_path = null;
         $witness2_path = null;
+        $status = "Diproses";
 
         if($request->hasFile('form')){
             $formPath = request()->file('form')->store('form','public');
@@ -138,9 +140,6 @@ public function birthcertif(Request $request){
         if($request->hasFile('witness1_ktp')){
             $witness1_path = request()->file('witness1_ktp')->store('images','public');
         }
-        if($request->hasFile('witness1_ktp')){
-            $witness1_path = request()->file('witness1_ktp')->store('images','public');
-        }
         if($request->hasFile('witness2_ktp')){
             $witness2_path = request()->file('witness2_ktp')->store('images','public');
         }
@@ -154,7 +153,8 @@ public function birthcertif(Request $request){
         $data['new_kk'] = $newkk_path;
         $data['witness1_ktp'] = $witness1_path;
         $data['witness2_ktp'] = $witness2_path;
-        $data['status'] = "proses";
+        $data['status'] = $status;
+        $data['user_id'] = $request->user_id;
         $newbithsertif = BirthCertif::create($data);
         return response()->json([
             "status" => 200,
@@ -177,6 +177,7 @@ try {
         "kk" => "required|file:max:20480",
         "ktp" => "required|file:max:20480",
         "user_id" => "required",
+        "name" => "required"
     ]);
     $formPath = null;
     $deadcertifpath = null;
@@ -207,7 +208,8 @@ try {
     $data['maried_certificate'] = $mariedcertifPath;
     $data['kk'] = $kkPath;
     $data['ktp'] = $ktpPath;
-    $data['status'] = "proses";
+    $data['name'] = $req->name;
+    $data['status'] = "Diproses";
     $diecertif = DieCertif::create($data);
     return response()->json([
         "status" => 200,
@@ -261,8 +263,8 @@ try {
     $data['maried_certificate'] = $mariedPath;
     $data['moving_later_certificate'] = $movingPath;
     $data['consent_partner'] = $consentPath;
-    $data['status'] = "proses";
-    $movingletter = MovingLater::create($data);
+    $data['status'] = "Diproses";
+    $movingletter = MovingLetter::create($data);
 
     return response()->json([
         "status" => 200,
@@ -274,5 +276,24 @@ try {
         "message" => $e->getMessage(),
     ]);
 }
+}
+
+
+public function submission(Request $request){
+    try {
+        $userId = $request->user()->id;
+
+        return response()->json([
+            'birth_certifs' => BirthCertif::where('user_id', $userId)->get(),
+            'die_certifs' => DieCertif::where('user_id', $userId)->get(),
+            'ektps' => Ektp::where('user_id', $userId)->get(),
+            'family_cards' => FamilyCard::where('user_id', $userId)->get(),
+            'moving_letters' => MovingLetter::where('user_id', $userId)->get(),
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            "message" => $e->getMessage()
+        ]);
+    }
 }
 }

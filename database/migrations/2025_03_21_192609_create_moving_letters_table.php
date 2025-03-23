@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('moving_laters', function (Blueprint $table) {
+        Schema::create('moving_letters', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('kk');
             $table->string('ktp');
             $table->string('maried_certificate');
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('moving_laters');
+        Schema::dropIfExists('moving_letters');
     }
 };
