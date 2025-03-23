@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('moving_letters', function (Blueprint $table) {
             $table->id();
+            $table->string('type')->default('Surat Pindah');
             $table->string('name');
             $table->string('kk');
             $table->string('ktp');
             $table->string('maried_certificate');
             $table->string('moving_later_certificate');
             $table->string('consent_partner');
-            $table->string('status')->nullable();
-            $table->string('notes')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->timestamps();
+            $table->foreignId('submission_id')
+                ->nullable()
+                ->constrained('submissions')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
         });
     }
 

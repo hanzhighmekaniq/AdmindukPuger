@@ -7,6 +7,8 @@ namespace Database\Seeders;
 use App\Models\DieCertif;
 use App\Models\Ektp;
 use App\Models\FamilyCard;
+use App\Models\Submission;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -41,27 +43,44 @@ class DatabaseSeeder extends Seeder
             'address' => 'Jl, MH. Thamrin'
         ]);
 
-        Ektp::create([
-            "kk" => "misalnya_kk.jpg",
-            "form" => "misalnya_form.jpg",
-            "user_id" => 1,
-            "name" => "Padias",
-            "status" => "Diproses"
-        ]);
-        FamilyCard::create([
-            "ktp" => "misalnya_kk.jpg",
-            "maried_certificated" => "misalnya_kk.jpg",
-            "form" => "misalnya_form.jpg",
-            "user_id" => 1
-        ]);
-        DieCertif::create([
-            'form' => 'misalnya_form.jpg',
-            'death_certificate' => 'misalnya_kk.jpg',
-            'kk' => 'misalnya_kk.jpg',
-            'ktp' => 'misalnya_kk.jpg',
-            'user_id' => 1
+        Type::create([
+            "name" => "KTP",
         ]);
 
-
+        Type::create([
+            "name" => "Akta Kelahiran",
+        ]);
+        Type::create([
+            "name" => "Kartu Keluarga",
+        ]);
+        Type::create([
+            "name" => "Akta Kematian",
+        ]);
+        Type::create([
+            "name" => "Surat Pindah",
+        ]);
+        Submission::create([
+            "user_id" => "1",
+            "type_id" => "1",
+            "name" => "Hanif Febriansyah",
+            "status" => "Disetujui",
+        ]);
+        Submission::create([
+            "user_id" => "1",
+            "type_id" => "1",
+            "name" => "Fadias Nur Ahmadi",
+            "status" => "Diproses",
+        ]);
+        Submission::create([
+            "user_id" => "1",
+            "type_id" => "1",
+            "name" => "Ahmad Rifa'i",
+            "status" => "Ditolak",
+        ]);
+        // FamilyCard::create([
+        //     "ktp" => "misalnya_kk.jpg",
+        //     "maried_certificated" => "misalnya_kk.jpg",
+        //     "form" => "misalnya_form.jpg",
+        // ]);
     }
 }

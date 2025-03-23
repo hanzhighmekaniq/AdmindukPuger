@@ -13,17 +13,18 @@ return new class extends Migration
     {
         Schema::create('die_certifs', function (Blueprint $table) {
             $table->id();
+            $table->string('type')->default('Akta Kematian');
             $table->string('name');
             $table->string('form');
             $table->string('death_certificate');
             $table->string('maried_certificate')->nullable();
             $table->string('kk');
             $table->string('ktp');
-            $table->string('status')->nullable();
-            $table->string('notes')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->timestamps();
+            $table->foreignId('submission_id')
+                ->nullable()
+                ->constrained('submissions')
+                ->onDelete('set null')
+                ->onUpdate('cascade');
         });
     }
 

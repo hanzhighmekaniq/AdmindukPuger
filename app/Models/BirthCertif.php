@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BirthCertif extends Model
 {
@@ -11,7 +12,6 @@ class BirthCertif extends Model
     public $fillable = [
         "form",
         "name",
-
         "mom_ktp",
         "dad_ktp",
         "maried_certif",
@@ -19,12 +19,12 @@ class BirthCertif extends Model
         "new_kk",
         "witness1_ktp",
         "witness2_ktp",
-        "user_id",
-        "status",
-        "note",
+        "submission_id",
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function submission(): BelongsTo
+    {
+        return $this->belongsTo(submission::class, 'submission_id', 'id'); // Menentukan foreign key dan local key
     }
+
 }
