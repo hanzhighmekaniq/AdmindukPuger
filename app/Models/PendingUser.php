@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class PendingUser extends Model
 {
     use HasFactory;
-    public $fillable = [
-        "name",
-        "location"
-    ];
+
+    protected $fillable = ['name', 'email', 'password', 'token'];
 }

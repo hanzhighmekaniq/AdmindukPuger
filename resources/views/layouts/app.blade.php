@@ -29,6 +29,7 @@
 <body class="bg-white">
     @include('partials.navbar')
     @include('partials.sidebar')
+    @include('modal.Success&Error')
     <div class="p-4 lg:ml-80">
         <div class="p-4 rounded-lg mt-20 lg:mt-28">
             {{ $slot }}

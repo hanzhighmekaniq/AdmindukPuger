@@ -1,4 +1,4 @@
-<nav class="fixed top-0 z-50 w-full bg-white">
+<nav class="fixed top-0 z-20 w-full bg-white">
     <div class="px-3 h-24 items-center flex justify-between py-4 lg:px-5 lg:pl-12">
         <div class="flex items-center justify-center rtl:justify-center">
             <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
@@ -35,13 +35,23 @@
                 <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm"
                     id="dropdown-user">
                     <div class="px-4 py-3" role="none">
-                        <p class="text-sm text-gray-900" role="none">
-                            Neil Sims
-                        </p>
-                        <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                            neil.sims@flowbite.com
-                        </p>
+                        @auth
+                            <p class="text-sm text-gray-900" role="none">
+                                {{ Auth::user()->name }} <!-- Menampilkan Nama User -->
+                            </p>
+                            <p class="text-sm font-medium text-gray-900 truncate" role="none">
+                                {{ Auth::user()->email }} <!-- Menampilkan Email User -->
+                            </p>
+                        @else
+                            <p class="text-sm text-gray-900" role="none">
+                                Guest
+                            </p>
+                            <p class="text-sm font-medium text-gray-900 truncate" role="none">
+                                -
+                            </p>
+                        @endauth
                     </div>
+
                     <ul class="py-1" role="none">
                         <li>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -70,3 +80,4 @@
         </div>
     </div>
 </nav>
+
