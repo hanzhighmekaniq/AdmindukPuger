@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MovingLater extends Model
+class MovingLetter extends Model
 {
     use HasFactory;
 
@@ -17,7 +17,8 @@ class MovingLater extends Model
         'consent_partner',
         'user_id',
         "notes",
-        "status"
+        "status",
+        "name",
     ];
 
     public function user(){

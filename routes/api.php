@@ -9,7 +9,7 @@ use Spatie\FlareClient\Api;
 use App\Http\Controllers\Api\SubmissionController;
 use App\Models\Ektp;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +22,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-Route::post('/email/resend', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-    return response()->json(['message' => 'Verification email resent']);
-})->middleware(['auth'])->name('verification.resend');
+Route::post('/email/resend-by-id', [AuthController::class, 'resendVerificationEmailById']);
 
-Route::post('register', [AuthController::class,'register'])->name('user.register');
+route::post('/email/verify/{id}/{hash}', [AuthController::class,'verifyEmail'])->name('reverif')->middleware('auth:sanctum');
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -35,6 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+
 });
 Route::get('/docs',[DocsController::class,'index'])->name('docs.index');
 
@@ -47,3 +45,13 @@ Route::post('/birthcertif', [SubmissionController::class,'birthcertif'])->name('
 Route::post('/diecertif', [SubmissionController::class,'diecertif'])->name('diecertif.create');
 
 Route::post('/movingletter', [SubmissionController::class,'movingletter'])->name('movingletter.create');
+
+
+Route::post('register', [AuthController::class,'register'])->name('user.register');
+
+Route::post('/login', [AuthController::class,'login'])->name('user.login');
+
+Route::post('/logout',[AuthController::class,'logout'])->name('user.logout')->middleware('auth:sanctum');
+Route::get('/submission/{user_id}', [SubmissionController::class,'submission'])->name('submission.get')->middleware('auth:sanctum');
+
+Route::post('/updateprofile/{id}', [AuthController::class,'updateprofile'])->name('submission.update')->middleware('auth:sanctum');

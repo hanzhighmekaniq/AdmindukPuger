@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('die_certifs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('form');
             $table->string('death_certificate');
             $table->string('maried_certificate')->nullable();

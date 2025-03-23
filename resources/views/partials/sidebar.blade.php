@@ -16,7 +16,7 @@
             </li>
 
             <li>
-                <a href="{{ route('formulir.index') }}"
+                <a href="{{ route('submission.index') }}"
                     class="flex items-center p-2 rounded-lg group
                           {{ request()->is('formulir*') ? 'bg-[#C3E9FF] text-blue-900' : 'text-gray-900 hover:bg-[#C3E9FF]' }}">
                     <img class="w-6 h-auto object-contain " src="{{ asset('img/beranda/formulir-icon.png') }}"

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('birth_certifs', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+
             $table->string('form');
             $table->string('mom_ktp');
             $table->string('dad_ktp');
@@ -21,7 +23,7 @@ return new class extends Migration
             $table->string('new_kk');
             $table->string('witness1_ktp');
             $table->string('witness2_ktp');
-            $table->string('status')->nullable();
+            $table->string('status')->nullable()->default('Diproses');
             $table->string('notes')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -10,6 +10,8 @@ class BirthCertif extends Model
     use HasFactory;
     public $fillable = [
         "form",
+        "name",
+
         "mom_ktp",
         "dad_ktp",
         "maried_certif",
@@ -20,8 +22,6 @@ class BirthCertif extends Model
         "user_id",
         "status",
         "note",
-
-
     ];
 
     public function user(){

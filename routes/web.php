@@ -7,7 +7,6 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-// ADMIN VIEW
 Route::middleware('auth')->group(function () {
 
 

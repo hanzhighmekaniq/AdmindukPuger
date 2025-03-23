@@ -28,7 +28,9 @@ class DatabaseSeeder extends Seeder
         Ektp::create([
             "kk" => "misalnya_kk.jpg",
             "form" => "misalnya_form.jpg",
-            "user_id" => 1
+            "user_id" => 1,
+            "name" => "Padias",
+            "status" => "Diproses"
         ]);
 
 

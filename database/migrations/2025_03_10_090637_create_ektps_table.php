@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('ektps', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('kk');
             $table->string('form');
             $table->string('status')->nullable();

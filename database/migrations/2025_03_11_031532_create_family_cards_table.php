@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('family_cards', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('ktp');
             $table->string('maried_certificated');
             $table->string('form');

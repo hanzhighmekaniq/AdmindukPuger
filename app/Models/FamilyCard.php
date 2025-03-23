@@ -14,7 +14,9 @@ class FamilyCard extends Model
         "form",
         "user_id",
         "status",
-        "notes"
+        "notes",
+        "name",
+        
     ];
 
     public function user(){
