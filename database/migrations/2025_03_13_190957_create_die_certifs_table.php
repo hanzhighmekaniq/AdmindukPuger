@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('maried_certificate')->nullable();
             $table->string('kk');
             $table->string('ktp');
+            $table->timestamps();
             $table->foreignId('submission_id')
                 ->nullable()
                 ->constrained('submissions')

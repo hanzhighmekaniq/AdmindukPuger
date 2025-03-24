@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('kk');
             $table->string('form');
+            $table->timestamps();
             $table->foreignId('submission_id')
                 ->nullable()
                 ->constrained('submissions')

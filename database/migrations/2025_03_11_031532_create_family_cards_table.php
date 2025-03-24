@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('ktp');
             $table->string('maried_certificated');
             $table->string('form');
+            $table->timestamps();
             $table->foreignId('submission_id')
                 ->nullable()
                 ->constrained('submissions')

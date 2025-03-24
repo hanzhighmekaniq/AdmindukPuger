@@ -20,67 +20,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        User::create([
-            'name' => 'user',
-            'role' => 'user',
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('123'),
-            'address' => 'Jl, MH. Thamrin'
-        ]);
         User::create([
             'name' => 'admin',
-            'role' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('123'),
-            'address' => 'Jl, MH. Thamrin'
+            'role' => 'admin',
         ]);
         User::create([
-            'name' => 'hanz',
-            'role' => 'admin',
-            'email' => 'hanzslurrr@gmail.com',
-            'password' => Hash::make('12345678'),
-            'address' => 'Jl, MH. Thamrin'
+            'name' => 'user',
+            'email' => 'user@gmail.com',
+            'password' => Hash::make('123'),
+            'role' => 'user',
         ]);
-
-        Type::create([
-            "name" => "KTP",
-        ]);
-
-        Type::create([
-            "name" => "Akta Kelahiran",
-        ]);
-        Type::create([
-            "name" => "Kartu Keluarga",
-        ]);
-        Type::create([
-            "name" => "Akta Kematian",
-        ]);
-        Type::create([
-            "name" => "Surat Pindah",
-        ]);
-        Submission::create([
-            "user_id" => "1",
-            "type_id" => "1",
-            "name" => "Hanif Febriansyah",
-            "status" => "Disetujui",
-        ]);
-        Submission::create([
-            "user_id" => "1",
-            "type_id" => "1",
-            "name" => "Fadias Nur Ahmadi",
-            "status" => "Diproses",
-        ]);
-        Submission::create([
-            "user_id" => "1",
-            "type_id" => "1",
-            "name" => "Ahmad Rifa'i",
-            "status" => "Ditolak",
-        ]);
-        // FamilyCard::create([
-        //     "ktp" => "misalnya_kk.jpg",
-        //     "maried_certificated" => "misalnya_kk.jpg",
-        //     "form" => "misalnya_form.jpg",
-        // ]);
+        User::factory(20)->create();
+        \App\Models\Ektp::factory(50)->create();
+        \App\Models\BirthCertif::factory(50)->create();
+        \App\Models\DieCertif::factory(50)->create();
+        \App\Models\FamilyCard::factory(50)->create();
+        \App\Models\MovingLetter::factory(50)->create();
     }
+
 }
