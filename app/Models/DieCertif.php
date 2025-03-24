@@ -14,6 +14,7 @@ class DieCertif extends Model
     public $fillable = [
         "name",
         "form",
+        "type",
         "death_certificate",
         "maried_certificate",
         "kk",

@@ -11,6 +11,7 @@ class SubmissionFactory extends Factory
     {
         return [
             'user_id' => rand(3,20),
+            'type_id'  => "ini gimana caranya biar ga random, mirip sama kayak di masing masing form",
             'name' => $this->faker->name,
             'status' => $this->faker->randomElement(['Diproses', 'Ditolak', 'Disetujui']),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),

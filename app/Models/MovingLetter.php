@@ -14,6 +14,7 @@ class MovingLetter extends Model
     public $fillable = [
         'kk',
         'ktp',
+        "type",
         'maried_certificate',
         'moving_later_certificate',
         'consent_partner',
@@ -25,5 +26,4 @@ class MovingLetter extends Model
     {
         return $this->belongsTo(Submission::class, 'submission_id', 'id'); // Menentukan foreign key dan local key
     }
-
 }

@@ -12,6 +12,7 @@ class FamilyCard extends Model
     use HasFactory;
     public $fillable = [
         "ktp",
+        "type",
         "maried_certificated",
         "form",
         "submission_id",

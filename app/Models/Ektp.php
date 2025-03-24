@@ -13,6 +13,7 @@ class Ektp extends Model
     use HasFactory;
     public $fillable = [
         "kk",
+        "type",
         "name",
         "form",
         "submission_id",

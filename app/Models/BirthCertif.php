@@ -14,6 +14,7 @@ class BirthCertif extends Model
     public $fillable = [
         "form",
         "name",
+        "type",
         "mom_ktp",
         "dad_ktp",
         "maried_certif",

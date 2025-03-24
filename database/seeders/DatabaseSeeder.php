@@ -20,24 +20,41 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        // Type::create([
+        //     "name" => "KTP",
+        // ]);
+
+        // Type::create([
+        //     "name" => "Akta Kelahiran",
+        // ]);
+        // Type::create([
+        //     "name" => "Kartu Keluarga",
+        // ]);
+        // Type::create([
+        //     "name" => "Akta Kematian",
+        // ]);
+        // Type::create([
+        //     "name" => "Surat Pindah",
+        // ]);
+
         User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('123'),
             'role' => 'admin',
         ]);
-        User::create([
-            'name' => 'user',
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('123'),
-            'role' => 'user',
-        ]);
-        User::factory(20)->create();
-        \App\Models\Ektp::factory(50)->create();
-        \App\Models\BirthCertif::factory(50)->create();
-        \App\Models\DieCertif::factory(50)->create();
-        \App\Models\FamilyCard::factory(50)->create();
-        \App\Models\MovingLetter::factory(50)->create();
+        // User::create([
+        //     'name' => 'user',
+        //     'email' => 'user@gmail.com',
+        //     'password' => Hash::make('123'),
+        //     'role' => 'user',
+        // ]);
+        // User::factory(20)->create();
+        // \App\Models\Ektp::factory(50)->create();
+        // \App\Models\BirthCertif::factory(50)->create();
+        // \App\Models\DieCertif::factory(50)->create();
+        // \App\Models\FamilyCard::factory(50)->create();
+        // \App\Models\MovingLetter::factory(50)->create();
     }
-
 }
