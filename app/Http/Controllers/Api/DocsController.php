@@ -21,20 +21,9 @@ class DocsController extends Controller
         }
      }
 
-     public function store(Request $request)
-     {
-         $request->validate([
-             'name' => 'required'
-         ]);
-         $docs = Document::create([
-             "name" => $request->name
-         ]);
-         return response()->json([
-             "status" => 200,
-             "data" => $docs,
-             "response" => "Sukses Menambahkan Document"
-         ]);
+     public function downloadcocs(Request $request, $id)    {
+        $docs = Document::find($id);
+        $pathToFile = public_path('public/documents/'.$docs->doc);
+        return response()->download($pathToFile);
      }
-
-
 }

@@ -10,6 +10,7 @@ use App\Models\FamilyCard;
 use App\Models\MovingLater;
 use App\Models\MovingLetter;
 use Illuminate\Http\Request;
+use App\Models\Submission;
 use Illuminate\Support\Facades\Storage;
 
 class SubmissionController extends Controller
@@ -279,16 +280,30 @@ try {
 }
 
 
-public function submission(Request $request){
+public function submission(Request $request)
+{
     try {
         $userId = $request->user()->id;
 
         return response()->json([
-            'birth_certifs' => BirthCertif::where('user_id', $userId)->get(),
-            'die_certifs' => DieCertif::where('user_id', $userId)->get(),
-            'ektps' => Ektp::where('user_id', $userId)->get(),
-            'family_cards' => FamilyCard::where('user_id', $userId)->get(),
-            'moving_letters' => MovingLetter::where('user_id', $userId)->get(),
+            'birth_certifs' => BirthCertif::whereHas('submission', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->with('submission')->get(),
+            'die_certifs' => DieCertif::whereHas('submission', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->with('submission')->get(),
+
+            'ektps' => Ektp::whereHas('submission', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->with('submission')->get(),
+
+            'family_cards' => FamilyCard::whereHas('submission', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->with('submission')->get(),
+
+            'moving_letters' => MovingLetter::whereHas('submission', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })->with('submission')->get(),
         ]);
     } catch (\Exception $e) {
         return response()->json([
@@ -296,4 +311,5 @@ public function submission(Request $request){
         ]);
     }
 }
+
 }
