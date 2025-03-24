@@ -52,6 +52,6 @@ Route::post('register', [AuthController::class,'register'])->name('user.register
 Route::post('/login', [AuthController::class,'login'])->name('user.login');
 
 Route::post('/logout',[AuthController::class,'logout'])->name('user.logout')->middleware('auth:sanctum');
-Route::get('/submission/{user_id}', [SubmissionController::class,'submission'])->name('submission.get')->middleware('auth:sanctum');
+Route::get('/submission', [SubmissionController::class,'submission'])->name('submission.get')->middleware('auth:sanctum');
 
-Route::post('/updateprofile/{id}', [AuthController::class,'updateprofile'])->name('submission.update')->middleware('auth:sanctum');
+Route::post('/updateprofile/{id}', [AuthController::class,'updateprofile'])->name('user.api.update')->middleware('auth:sanctum');

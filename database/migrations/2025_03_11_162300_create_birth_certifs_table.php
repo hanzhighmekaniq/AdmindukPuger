@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('new_kk');
             $table->string('witness1_ktp');
             $table->string('witness2_ktp');
+            $table->timestamps();
             $table->foreignId('submission_id')
                 ->nullable()
                 ->constrained('submissions')
