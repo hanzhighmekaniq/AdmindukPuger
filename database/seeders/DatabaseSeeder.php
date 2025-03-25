@@ -21,6 +21,25 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+        User::create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('123'),
+            'role' => 'admin',
+        ]);
+        // Buat 20 user acak
+        $users = User::factory(20)->create();
+
+        // Ambil ID user yang baru dibuat
+        $userIds = $users->pluck('id')->toArray();
+
+        // Buat 50 submission dengan user_id dari 20 user yang dibuat
+        Submission::factory(50)->create([
+            'user_id' => function () use ($userIds) {
+                return $userIds[array_rand($userIds)];
+            },
+        ]);
+
         // Type::create([
         //     "name" => "KTP",
         // ]);
@@ -37,21 +56,12 @@ class DatabaseSeeder extends Seeder
         // Type::create([
         //     "name" => "Surat Pindah",
         // ]);
-
-        User::create([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('123'),
-            'role' => 'admin',
-        ]);
         // User::create([
         //     'name' => 'user',
         //     'email' => 'user@gmail.com',
         //     'password' => Hash::make('123'),
         //     'role' => 'user',
         // ]);
-        // User::factory(20)->create();
-        // \App\Models\Ektp::factory(50)->create();
         // \App\Models\BirthCertif::factory(50)->create();
         // \App\Models\DieCertif::factory(50)->create();
         // \App\Models\FamilyCard::factory(50)->create();

@@ -12,7 +12,7 @@
                     <p class="text-base xl:text-xl poppins-semibold">Jumlah Pengajuan</p>
                     <div class="flex justify-between space-x-4 items-center">
                         <img class="object-contain" src="{{ asset('img/beranda/users-pengajuan.png') }}" alt="">
-                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $countAll }}</h1>
+                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $allCount }}</h1>
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
                     <p class="text-base xl:text-xl poppins-semibold">Jumlah Disetujui</p>
                     <div class="flex justify-between space-x-4 items-center">
                         <img class="object-contain" src="{{ asset('img/beranda/users-setuju.png') }}" alt="">
-                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $countApproved }}</h1>
+                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $disetujuiCount }}</h1>
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                     <p class="text-base xl:text-xl poppins-semibold">Jumlah Ditolak</p>
                     <div class="flex justify-between space-x-4 items-center">
                         <img class="object-contain" src="{{ asset('img/beranda/users-tolak.png') }}" alt="">
-                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $countRejected }}</h1>
+                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $ditolakCount }}</h1>
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
                     <p class="text-base xl:text-xl poppins-semibold">Jumlah Diproses</p>
                     <div class="flex justify-between space-x-4 items-center">
                         <img class="object-contain" src="{{ asset('img/beranda/users-diproses.png') }}" alt="">
-                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $countProcessing }}</h1>
+                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $diprosesCount }}</h1>
                     </div>
                 </div>
             </div>
@@ -63,16 +63,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($submissions as $submission)
+                            @foreach ($submissions as $index => $submission)
                                 <tr class="bg-white border-b border-gray-200">
                                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $submission->id }}
+                                        {{ $index + 1 }}
                                     </td>
                                     <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                         {{ $submission->name ?? 'Tidak Ada Nama' }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $submission->type->name ?? 'Tidak Ada Jenis' }}
+                                        {{ $submission->type ?? 'Tidak Ada Jenis' }}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $submission->created_at }}
@@ -80,21 +80,18 @@
                                     <td class="px-6 py-4">
                                         <span
                                             class="px-2 py-1 text-xs font-semibold rounded-lg
-                                            {{ $submission->status == 'Disetujui' ? 'bg-green-200 text-green-800' : '' }}
-                                            {{ $submission->status == 'Ditolak' ? 'bg-red-200 text-red-800' : '' }}
-                                            {{ $submission->status == 'Diproses' ? 'bg-yellow-200 text-yellow-800' : '' }}">
+                {{ $submission->status == 'Disetujui' ? 'bg-green-200 text-green-800' : '' }}
+                {{ $submission->status == 'Ditolak' ? 'bg-red-200 text-red-800' : '' }}
+                {{ $submission->status == 'Diproses' ? 'bg-yellow-200 text-yellow-800' : '' }}">
                                             {{ $submission->status }}
                                         </span>
                                     </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
 
-                    <!-- Tambahkan pagination -->
-                    <div class="mt-4">
-                        {{ $submissions->links() }}
-                    </div>
 
                 </div>
 
