@@ -17,39 +17,40 @@ class SubmissionAdminController extends Controller
 
     public function index(Request $request)
     {
-        $query = Submission::with([
-            'type',
-            'BirthCertifs',
-            'DieCertifs',
-            'Ektps',
-            'FamilyCards',
-            'MovingLetters'
-        ]);
+        // Ambil filter dari request
+        $type = $request->input('type');
+        $status = $request->input('status');
+        $search = $request->input('name');
 
-        // Filter berdasarkan Type
-        if ($request->has('type') && $request->type != '') {
-            $query->whereHas('type', function ($q) use ($request) {
-                $q->where('name', $request->type);
-            });
+        // Query dasar dengan eager loading
+        $query = Submission::with('user');
+
+        // Terapkan filter berdasarkan type (jika dipilih)
+        if (!empty($type)) {
+            $query->where('type', $type);
         }
 
-        // Filter berdasarkan Status
-        if ($request->has('status') && $request->status != '') {
-            $query->where('status', $request->status);
+        // Terapkan filter berdasarkan status (jika dipilih)
+        if (!empty($status)) {
+            $query->where('status', $status);
         }
 
-        // Filter berdasarkan Nama
-        if ($request->has('name') && $request->name != '') {
-            $query->where('name', 'like', '%' . $request->name . '%');
+        // Terapkan filter pencarian berdasarkan nama (jika ada)
+        if (!empty($search)) {
+            $query->where('name', 'like', '%' . $search . '%');
         }
 
-        $submissions = $query->paginate(10);
-
-        // Ambil data Type untuk dropdown
-        $types = Type::all();
-
-        return view('admin.submission', compact('submissions', 'types'));
+        // Paginate hasil dengan mempertahankan query string
+        $submissions = $query->paginate(10)->withQueryString();
+        foreach ($submissions as $submission) {
+            if (is_string($submission->data)) {
+                $submission->data = json_decode($submission->data, true);
+            }
+        }
+        return view('admin.submission', compact('submissions'));
     }
+
+
 
 
     /**

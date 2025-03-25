@@ -1,3 +1,6 @@
+<div class="h-20 lg:h-28 w-full bg-red-50">
+
+</div>
 <nav class="fixed top-0 z-20 w-full bg-white">
     <div class="px-3 h-24 items-center flex justify-between py-4 lg:px-5 lg:pl-12">
         <div class="flex items-center justify-center rtl:justify-center">
@@ -80,4 +83,3 @@
         </div>
     </div>
 </nav>
-

@@ -24,34 +24,19 @@
     <title>AdmindukPuger</title>
 </head>
 
-@if (session('success'))
-    <div id="alert-success"
-        class="fixed top-28 left-1/2 -translate-x-1/2 bg-green-500 text-white p-3 rounded-md shadow-lg animate-fade-in">
-        {{ session('success') }}
-    </div>
-@endif
 
-@if (session('error'))
-    <div id="alert-error"
-        class="fixed top-28 left-1/2 -translate-x-1/2 bg-red-500 text-white p-3 rounded-md shadow-lg animate-fade-in">
-        {{ session('error') }}
-    </div>
-@endif
-<script>
-    // Auto-hide alert setelah 3 detik
-    setTimeout(() => {
-        document.getElementById('alert-success')?.classList.add('hidden');
-        document.getElementById('alert-error')?.classList.add('hidden');
-    }, 3000);
-</script>
+
+
+
 
 <body class="bg-white">
     @include('partials.navbar')
     @include('partials.sidebar')
     @include('modal.Success&Error')
     <div class="p-4 lg:ml-80">
-        <div class="p-4 rounded-lg mt-20 lg:mt-28">
+        <div class="p-4 rounded-lg ">
             {{ $slot }}
+
         </div>
     </div>
 </body>
