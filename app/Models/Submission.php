@@ -23,7 +23,7 @@ class Submission extends Model
     ];
 
 
-    public function submission(): BelongsTo
+    public function user(): BelongsTo
 
     {
         return $this->belongsTo(User::class, 'user_id', 'id'); // Menentukan foreign key dan local key

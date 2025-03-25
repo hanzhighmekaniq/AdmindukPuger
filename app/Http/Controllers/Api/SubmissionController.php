@@ -202,7 +202,6 @@ public function diecertif(Request $req)
             'maried_certificate' => $mariedCertifPath,
             'kk' => $kkPath,
             'ktp' => $ktpPath,
-            'name' => $req->name
         ];
 
         $submission = Submission::create([
