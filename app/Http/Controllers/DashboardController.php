@@ -2,12 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Submission;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.dashboard');
+        $submissions = Submission::with('user')->paginate(9);
+
+        // Menghitung jumlah submission berdasarkan status
+        $allCount = Submission::count();
+        $disetujuiCount = Submission::where('status', 'disetujui')->count();
+        $ditolakCount = Submission::where('status', 'ditolak')->count();
+        $diprosesCount = Submission::where('status', 'diproses')->count();
+
+        return view('admin.dashboard', compact('submissions', 'allCount', 'disetujuiCount', 'ditolakCount', 'diprosesCount'));
     }
 }

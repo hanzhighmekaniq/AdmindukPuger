@@ -14,14 +14,11 @@ return new class extends Migration
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type');
+            $table->longText('data');
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained('users')
-                ->onDelete('set null')
-                ->onUpdate('cascade');
-            $table->foreignId('type_id')
-                ->nullable()
-                ->constrained('types')
                 ->onDelete('set null')
                 ->onUpdate('cascade');
             $table->enum('status', ['Disetujui', 'Ditolak', 'Diproses'])->default('Diproses');
