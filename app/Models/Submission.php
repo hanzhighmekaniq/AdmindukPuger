@@ -15,13 +15,12 @@ class Submission extends Model
     protected $table = 'submissions';
     public $fillable = [
         "user_id",
-        "type_id",
+        "type",
+        "data",
         "name",
         "status",
         "notes"
     ];
-
-
 
 
     public function submission(): BelongsTo
