@@ -3,7 +3,7 @@
     <div class="md:space-y-14 ">
 
         <div id="beranda"
-            class="relative md:h-screen w-screen flex justify-center items-center bg-cover bg-center py-24 sm:py-14 md:py-0"
+            class="relative md:h-screen w-screen flex justify-center items-center bg-cover bg-center py-24 sm:py-14 md:py-0 scroll-mt-20"
             style="background-image: url('{{ asset('img/bg-atas.png') }}');">
             <div class="container">
                 <div class="grid grid-cols-1 xl:grid-cols-2 justify-center md:px-10">
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="flex justify-center">
+        <div id="visi-misi" class="flex justify-center scroll-mt-20">
             <div class="container">
                 <div class="grid grid-cols-1 xl:grid-cols-12">
                     <div class="col-span-5 ">
@@ -76,8 +76,8 @@
             </div>
         </div>
 
-        <div id="beranda"
-            class="flex md:py-14 py-10 justify-center relative bg-cover bg-center w-screen  object-contain"
+        <div id="tentang"
+            class="flex md:py-14 py-10 justify-center relative bg-cover bg-center w-screen  object-contain scroll-mt-20"
             style="background-image: url('{{ asset('img/bg-bawah.png') }}');">
             <div class="container">
                 <div class="space-y-10">

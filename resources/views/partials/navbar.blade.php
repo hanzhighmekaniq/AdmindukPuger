@@ -15,7 +15,7 @@
                     </path>
                 </svg>
             </button>
-            <a href="{{ route('dashboard') }}" class="flex justify-center ms-12">
+            <a href="{{ route('dashboard') }}" class="flex justify-center ms-2 lg:ms-12">
                 <div class="items-center flex flex-col leading-none ">
                     <span
                         class="text-sm lg:text-2xl top-0.5 lg:top-1.5 relative  whitespace-nowrap text-black poppins-bold font-bold">Adminduk</span>
@@ -31,13 +31,16 @@
                         class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
                         aria-expanded="false" data-dropdown-toggle="dropdown-user">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 lg:w-10 lg:h-10 rounded-full"
-                            src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                        <svg class="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-gray-300 text-gray-600 p-1"
+                            viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="8" r="4" fill="currentColor" />
+                            <path fill="currentColor" d="M4 20c0-4 4-6 8-6s8 2 8 6H4z" />
+                        </svg>
                     </button>
                 </div>
-                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm"
+                <div class="z-50 hidden my-4 text-base list-none bg-slate-300 divide-y divide-gray-100 rounded-xl shadow-sm"
                     id="dropdown-user">
-                    <div class="px-4 py-3" role="none">
+                    <div class="px-4 py-3 border" role="none">
                         @auth
                             <p class="text-sm text-gray-900" role="none">
                                 {{ Auth::user()->name }} <!-- Menampilkan Nama User -->
@@ -55,25 +58,18 @@
                         @endauth
                     </div>
 
-                    <ul class="py-1" role="none">
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    <ul class="border" role="none">
+                        {{-- <li>
+                            <a href="{{ route('dashboard') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                 role="menuitem">Dashboard</a>
-                        </li>
+                        </li> --}}
                         <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                role="menuitem">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                role="menuitem">Earnings</a>
-                        </li>
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}" class="">
                                 @csrf
-                                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                <button type="submit" class="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem">
-                                    Sign out
+                                    Log out
                                 </button>
                             </form>
                         </li>

@@ -23,8 +23,13 @@
                     <img class="w-6 h-auto object-contain " src="{{ asset('img/beranda/formulir-icon.png') }}"
                         alt="">
                     <span class="flex-1 ms-4  text-xl poppins-regular">Pengajuan</span>
+                    @php
+                        $countProses = \App\Models\Submission::where('status', 'Diproses')->count();
+                    @endphp
                     <span
-                        class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-300 rounded-full">3</span>
+                        class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-300 rounded-full">
+                        {{ $countProses }}
+                    </span>
                     {{-- <span class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full">Pro</span> --}}
                 </a>
             </li>

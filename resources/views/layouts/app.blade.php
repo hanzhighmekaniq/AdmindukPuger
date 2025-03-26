@@ -36,9 +36,23 @@
     <div class="p-4 lg:ml-80">
         <div class="p-4 rounded-lg ">
             {{ $slot }}
-
+            <footer class="bg-white shadow-sm border-gray-200 border mt-4 p-4">
+                <div
+                    class="max-w-7xl xl:max-w-full mx-auto flex flex-col sm:flex-row justify-between items-center text-gray-600 text-sm">
+                    <span>&copy; {{ date('Y') }} <a href="#" class="text-blue-500 hover:underline">Adminduk
+                            Puger</a>.
+                        All rights reserved.</span>
+                    <div class="flex space-x-4 mt-2 sm:mt-0">
+                        <a href="#" class="hover:text-blue-500">Privacy Policy</a>
+                        <a href="#" class="hover:text-blue-500">Terms of Service</a>
+                        <a href="#" class="hover:text-blue-500">Support</a>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
+
+
 </body>
 
 

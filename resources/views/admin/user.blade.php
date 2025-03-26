@@ -30,15 +30,12 @@
             </div>
 
         </div>
-        <div class="shadow-md shadow-gray-400 w-full h-auto bg-gray-200 rounded-sm p-4">
-            <div class="pb-2">
+        <div class="w-full h-auto bg-gray-200 rounded-t-xl">
+            <div class="p-4">
                 <p class="poppins-semibold text-[#06275A] text-xl pl-2">Daftar Pengguna</p>
             </div>
-            <div class="relative overflow-x-auto  rounded-xl">
-                <div class="px-2 pb-2">
+            <div class="relative overflow-x-auto">
 
-                    {{ $user->links() }}
-                </div>
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
                         <tr>
@@ -63,7 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($user as $users)
+                        @forelse  ($user as $users)
                             <tr class="bg-white border-b  border-gray-200">
                                 <th scope="row"
                                     class=" lg:px-6 lg:py-4 font-medium text-gray-900 whitespace-nowrap ">
@@ -101,15 +98,19 @@
                                         </button>
                                     </div>
                                 </td>
-
-
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-6 py-4 mx-auto text-center">Tidak ada data</td>
+                            </tr>
+                        @endforelse
 
                     </tbody>
                 </table>
             </div>
-
+        </div>
+        <div class="mt-4 px-4">
+            {{ $user->links() }}
         </div>
     </div>
 </x-AppLayout>

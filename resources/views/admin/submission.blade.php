@@ -84,11 +84,11 @@
         </script>
 
 
-        <div class="shadow-md shadow-gray-400 w-full h-auto bg-gray-200 rounded-sm p-4">
-            <div class="pb-2">
+        <div class=" w-full h-auto bg-gray-200 rounded-t-xl">
+            <div class="p-4">
                 <p class="poppins-semibold text-[#06275A] text-xl pl-2">Daftar Pengajuan</p>
             </div>
-            <div class="relative overflow-x-auto  rounded-xl">
+            <div class="relative overflow-x-auto ">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
@@ -156,14 +156,14 @@
                     </tbody>
                 </table>
 
-                <!-- Pagination -->
-                <div class="mt-4">
-                    {{ $submissions->links() }}
-                </div>
 
 
             </div>
 
+        </div>
+        <!-- Pagination -->
+        <div class="mt-4 px-4">
+            {{ $submissions->links() }}
         </div>
     </div>
 

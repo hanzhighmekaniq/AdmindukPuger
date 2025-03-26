@@ -1,4 +1,4 @@
-<footer id="beranda"
+<footer id="contact"
     class="relative bg-[#06275A] py-0 md:py-0 w-screen flex justify-center object-cover items-center  bg-center"
     style="background-image: url('{{ asset('img/bg-footer.png') }}');">
     <div class="container">
