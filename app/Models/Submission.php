@@ -13,19 +13,18 @@ class Submission extends Model
 {
     use HasFactory;
     protected $table = 'submissions';
-    protected $fillable = [
-        'name',
-        'type',
-        'data',
-        'user_id',
-        'status',
-        'notes',
+    public $fillable = [
+        "user_id",
+        "type",
+        "data",
+        "name",
+        "status",
+        "notes"
     ];
 
 
-
-
     public function user(): BelongsTo
+
     {
         return $this->belongsTo(User::class, 'user_id', 'id'); // Menentukan foreign key dan local key
     }

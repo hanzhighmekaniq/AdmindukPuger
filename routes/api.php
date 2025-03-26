@@ -35,6 +35,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 });
 Route::get('/docs',[DocsController::class,'index'])->name('docs.index');
+Route::get('/docs/download/{id}',[DocsController::class,'downloadcocs'])->name('docs.show');
+
 
 Route::post('/ektp',[SubmissionController::class,'newektp'])->name('ktp.create');
 

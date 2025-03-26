@@ -21,9 +21,17 @@ class DocsController extends Controller
         }
      }
 
-     public function downloadcocs(Request $request, $id)    {
-        $docs = Document::find($id);
-        $pathToFile = public_path('public/documents/'.$docs->doc);
-        return response()->download($pathToFile);
-     }
+     public function downloadcocs($id)
+{
+    $docs = Document::find($id);
+    if (!$docs) {
+        return response()->json(['message' => 'Dokumen tidak ditemukan'], 404);
+    }
+    $pathToFile = public_path('storage/'.$docs->doc);
+    if (!file_exists($pathToFile)) {
+        return response()->json(['message' => 'File tidak ditemukan'], 404);
+    }
+    return response()->download($pathToFile);
+}
+
 }
