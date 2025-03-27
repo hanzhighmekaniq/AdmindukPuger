@@ -19,4 +19,8 @@ class DashboardController extends Controller
 
         return view('admin.dashboard', compact('submissions', 'allCount', 'disetujuiCount', 'ditolakCount', 'diprosesCount'));
     }
+    public function success()
+    {
+        return view('auth.verify-seuccess');
+    }
 }
