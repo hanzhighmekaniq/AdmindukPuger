@@ -117,11 +117,13 @@
                                     <td class="px-6 py-4">
                                         <span
                                             class="px-2 py-1 text-xs font-semibold rounded-lg
-                {{ $submission->status == 'Disetujui' ? 'bg-green-200 text-green-800' : '' }}
-                {{ $submission->status == 'Ditolak' ? 'bg-red-200 text-red-800' : '' }}
-                {{ $submission->status == 'Diproses' ? 'bg-yellow-200 text-yellow-800' : '' }}">
+                                        {{ $submission->status == 'Disetujui' ? 'bg-blue-200 text-blue-800' : '' }}
+                                        {{ $submission->status == 'Selesai' ? 'bg-green-200 text-green-800' : '' }}
+                                        {{ $submission->status == 'Ditolak' ? 'bg-red-200 text-red-800' : '' }}
+                                        {{ $submission->status == 'Diproses' ? 'bg-yellow-200 text-yellow-800' : '' }}">
                                             {{ $submission->status }}
                                         </span>
+
                                     </td>
                                 </tr>
                             @endforeach

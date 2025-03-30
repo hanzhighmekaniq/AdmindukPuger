@@ -1,7 +1,7 @@
 <div class="h-20 lg:h-28 w-full bg-red-50">
 
 </div>
-<nav class="fixed top-0 z-20 w-full bg-white">
+<nav class="fixed top-0 z-50 w-full bg-white">
     <div class="px-3 h-24 items-center flex justify-between py-4 lg:px-5 lg:pl-12">
         <div class="flex items-center justify-center rtl:justify-center">
             <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar"
@@ -67,7 +67,8 @@
                         <li>
                             <form method="POST" action="{{ route('logout') }}" class="">
                                 @csrf
-                                <button type="submit" class="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                <button type="submit"
+                                    class="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem">
                                     Log out
                                 </button>

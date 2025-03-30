@@ -93,8 +93,9 @@ class SubmissionAdminController extends Controller
         try {
             // Validasi input
             $request->validate([
-                'status' => 'required|in:Disetujui,Ditolak,Diproses',
+                'status' => 'required|in:Disetujui,Ditolak,Diproses,Selesai',
                 'notes' => 'nullable|string|max:255',
+                'date' => 'nullable|date', // Pastikan input tanggal divalidasi
             ]);
 
             // Ambil data submission berdasarkan ID
@@ -103,11 +104,19 @@ class SubmissionAdminController extends Controller
             // Update status
             $submission->status = $request->status;
 
-            // Simpan notes hanya jika statusnya "Ditolak"
+            // Simpan catatan berdasarkan status
             if ($request->status === 'Ditolak') {
-                $submission->notes = $request->notes;
+                $submission->notes = $request->notes; // Simpan alasan penolakan
+            } elseif ($request->status === 'Disetujui' || $request->status === 'Selesai') {
+                // Jika ada tanggal, buat format catatan otomatis
+                if ($request->date) {
+                    $formattedDate = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
+                    $submission->notes = "Dokumen dapat diambil pada tanggal $formattedDate";
+                } else {
+                    $submission->notes = $request->notes; // Simpan notes jika ada
+                }
             } else {
-                $submission->notes = null; // Reset jika status bukan "Ditolak"
+                $submission->notes = null; // Hapus notes jika status lain
             }
 
             // Simpan perubahan
@@ -120,6 +129,7 @@ class SubmissionAdminController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
 
 
 

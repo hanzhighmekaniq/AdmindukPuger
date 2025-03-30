@@ -21,7 +21,7 @@ return new class extends Migration
                 ->constrained('users')
                 ->onDelete('set null')
                 ->onUpdate('cascade');
-            $table->enum('status', ['Disetujui', 'Ditolak', 'Diproses'])->default('Diproses');
+            $table->enum('status', ['Disetujui', 'Ditolak', 'Diproses', 'Selesai'])->default('Diproses');
             $table->string('notes')->nullable();
             $table->timestamps();
         });
