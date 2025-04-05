@@ -315,7 +315,7 @@
                                     if (dateInput.value) {
                                         updateApprovalText(id);
                                     } else {
-                                        notesText.innerText = `Dokumen telah disetujui pada tanggal: [Pilih tanggal]`;
+                                        notesText.innerText = `Dokumen dapat diambil pada tanggal: [Pilih tanggal]`;
                                         notesHiddenInput.value = "";
                                     }
 
