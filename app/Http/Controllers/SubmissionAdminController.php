@@ -91,44 +91,57 @@ class SubmissionAdminController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            // Validasi input
             $request->validate([
                 'status' => 'required|in:Disetujui,Ditolak,Diproses,Selesai',
                 'notes' => 'nullable|string|max:255',
-                'date' => 'nullable|date', // Pastikan input tanggal divalidasi
+                'date' => 'nullable|date',
             ]);
 
-            // Ambil data submission berdasarkan ID
             $submission = Submission::findOrFail($id);
-
-            // Update status
             $submission->status = $request->status;
 
-            // Simpan catatan berdasarkan status
             if ($request->status === 'Ditolak') {
-                $submission->notes = $request->notes; // Simpan alasan penolakan
-            } elseif ($request->status === 'Disetujui' || $request->status === 'Selesai') {
-                // Jika ada tanggal, buat format catatan otomatis
-                if ($request->date) {
-                    $formattedDate = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
-                    $submission->notes = "Dokumen dapat diambil pada tanggal $formattedDate";
+                $submission->notes = $request->notes;
+            } elseif ($request->status === 'Disetujui') {
+                if ($submission->type === 'KK') {
+                    if ($request->date) {
+                        $formattedDate = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
+                        $submission->notes = "Dokumen dapat diambil pada tanggal $formattedDate";
+                    } else {
+                        $submission->notes = null;
+                    }
+                } elseif ($submission->type === 'KTP') {
+                    if ($request->date) {
+                        $kekantor = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
+                        $submission->notes = "Silahkan Datang ke kantor kecamatan untuk perekaman Biometrik pada tanggal $kekantor";
+                    } else {
+                        $submission->notes = null;
+                    }
                 } else {
-                    $submission->notes = $request->notes; // Simpan notes jika ada
+                    $submission->notes = null;
+                }
+            } elseif ($request->status === 'Selesai') {
+                // Gunakan input notes dari form untuk semua jenis dokumen
+                // Jika notes kosong, berikan nilai default
+                if (!empty($request->notes)) {
+                    $submission->notes = $request->notes;
+                } else {
+                    $submission->notes = $submission->type === 'KK' ?
+                        "Dokumen telah di ambil oleh (Tidak diketahui)" :
+                        "Silahkan ambil di kantor kecamatan";
                 }
             } else {
-                $submission->notes = null; // Hapus notes jika status lain
+                $submission->notes = null;
             }
 
-            // Simpan perubahan
             $submission->save();
 
-            // Redirect dengan pesan sukses
             return redirect()->back()->with('success', 'Status berhasil diperbarui.');
         } catch (\Exception $e) {
-            // Tangani error dan tampilkan pesan
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
 
 
 
