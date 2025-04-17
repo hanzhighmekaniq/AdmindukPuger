@@ -20,23 +20,17 @@ class SubmissionController extends Controller
     try {
         $req->validate([
             "kk" => "required|file|max:20480", // 20MB
-            "form" => "required|file|max:20480", // 20MB
             "user_id" => "required",
             "name" => "required"
         ]);
         $kkPath = null;
-        $formPath = null;
 
         if ($req->hasFile('kk')) {
             $kkPath = $req->file('kk')->store('images', 'public');
         }
 
-        if ($req->hasFile('form')) {
-            $formPath = $req->file('form')->store('form', 'public');
-        }
         $jsonData = [
             'kk' => $kkPath,
-            'form' => $formPath,
         ];
 
         $submission = Submission::create([
@@ -88,7 +82,6 @@ public function newkk(Request $req)
             $marriedCertifPath = $req->file('maried_certificated')->store('images', 'public');
         }
 
-        // Siapin JSON buat data kolom
         $jsonData = [
             'ktp' => $ktpPath,
             'form' => $formPath,
