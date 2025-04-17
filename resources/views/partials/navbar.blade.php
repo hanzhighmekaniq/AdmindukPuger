@@ -67,7 +67,8 @@
                         <li>
                             <form method="POST" action="{{ route('logout') }}" class="">
                                 @csrf
-                                <button type="submit" class="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                <button type="submit"
+                                    class="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem">
                                     Log out
                                 </button>

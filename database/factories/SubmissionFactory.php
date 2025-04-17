@@ -18,7 +18,7 @@ class SubmissionFactory extends Factory
                 'field1' => $this->faker->word,
                 'field2' => $this->faker->sentence,
             ]), // Isi data agar tidak NULL
-            'status' => $this->faker->randomElement(['Diproses', 'Ditolak', 'Disetujui']),
+            'status' => $this->faker->randomElement(['Diproses', 'Ditolak', 'Disetujui', 'Selesai']),
             'created_at' => now(),
             'updated_at' => now(),
         ];

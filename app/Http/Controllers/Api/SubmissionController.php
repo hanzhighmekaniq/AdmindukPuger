@@ -282,15 +282,29 @@ public function submission(Request $request)
 {
     try {
         $userId = $request->user()->id;
-
         return response()->json([
             'status' => 200,
             'data' => [
-                'ektp' => Submission::where('user_id', $userId)->where('type', 'KTP')->get(),
-                'kk' => Submission::where('user_id', $userId)->where('type', 'Kartu Keluarga')->get(),
-                'birth_certif' => Submission::where('user_id', $userId)->where('type', 'Akta Kelahiran')->get(),
-                'die_certif' => Submission::where('user_id', $userId)->where('type', 'Akta Kematian')->get(),
-                'moving_letter' => Submission::where('user_id', $userId)->where('type', 'Surat Pindah')->get(),
+                'ektp' => Submission::where('user_id', $userId)
+                                    ->where('type', 'KTP')
+                                    ->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at terbaru
+                                    ->get(),
+                'kk' => Submission::where('user_id', $userId)
+                                  ->where('type', 'Kartu Keluarga')
+                                  ->orderBy('created_at', 'desc')
+                                  ->get(),
+                'birth_certif' => Submission::where('user_id', $userId)
+                                            ->where('type', 'Akta Kelahiran')
+                                            ->orderBy('created_at', 'desc')
+                                            ->get(),
+                'die_certif' => Submission::where('user_id', $userId)
+                                          ->where('type', 'Akta Kematian')
+                                          ->orderBy('created_at', 'desc')
+                                          ->get(),
+                'moving_letter' => Submission::where('user_id', $userId)
+                                              ->where('type', 'Surat Pindah')
+                                              ->orderBy('created_at', 'desc')
+                                              ->get(),
             ]
         ]);
     } catch (\Exception $e) {
