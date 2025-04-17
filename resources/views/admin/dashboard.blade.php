@@ -6,13 +6,13 @@
     </div>
     <div class="lg:col-span-9 flex flex-col">
         <div class="flex justify-center">
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4  gap-8 w-full">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 w-full">
                 <!-- Jumlah Semua Pengajuan -->
                 <div class="p-8 shadow-xl shadow-gray-400 rounded-lg bg-[#D7E3FD] text-[#06275A]">
                     <p class="text-base xl:text-xl poppins-semibold">Jumlah Pengajuan</p>
                     <div class="flex justify-between space-x-4 items-center">
                         <img class="object-contain" src="{{ asset('img/beranda/users-pengajuan.png') }}" alt="">
-                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $allCount }}</h1>
+                        <h1 class="text-lg xl:text-2xl poppins-bold count-up" data-target="{{ $allCount }}">0</h1>
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
                     <p class="text-base xl:text-xl poppins-semibold">Jumlah Disetujui</p>
                     <div class="flex justify-between space-x-4 items-center">
                         <img class="object-contain" src="{{ asset('img/beranda/users-setuju.png') }}" alt="">
-                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $disetujuiCount }}</h1>
+                        <h1 class="text-lg xl:text-2xl poppins-bold count-up" data-target="{{ $disetujuiCount }}">0</h1>
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                     <p class="text-base xl:text-xl poppins-semibold">Jumlah Ditolak</p>
                     <div class="flex justify-between space-x-4 items-center">
                         <img class="object-contain" src="{{ asset('img/beranda/users-tolak.png') }}" alt="">
-                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $ditolakCount }}</h1>
+                        <h1 class="text-lg xl:text-2xl poppins-bold count-up" data-target="{{ $ditolakCount }}">0</h1>
                     </div>
                 </div>
 
@@ -39,10 +39,47 @@
                     <p class="text-base xl:text-xl poppins-semibold">Jumlah Diproses</p>
                     <div class="flex justify-between space-x-4 items-center">
                         <img class="object-contain" src="{{ asset('img/beranda/users-diproses.png') }}" alt="">
-                        <h1 class="text-lg xl:text-2xl poppins-bold">{{ $diprosesCount }}</h1>
+                        <h1 class="text-lg xl:text-2xl poppins-bold count-up" data-target="{{ $diprosesCount }}">0</h1>
                     </div>
                 </div>
             </div>
+
+            <!-- Script Animasi Count-Up -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const counters = document.querySelectorAll('.count-up');
+
+                    const observer = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                const counter = entry.target;
+                                const target = +counter.getAttribute('data-target');
+                                let start = 0;
+                                const duration = 2000; // 2 detik
+                                const increment = target / (duration / 16); // hitungan 60 FPS
+
+                                function updateCount() {
+                                    start += increment;
+                                    if (start < target) {
+                                        counter.innerText = Math.floor(start);
+                                        requestAnimationFrame(updateCount);
+                                    } else {
+                                        counter.innerText = target;
+                                    }
+                                }
+
+                                updateCount();
+                                observer.unobserve(counter); // Hanya animasi sekali
+                            }
+                        });
+                    }, {
+                        threshold: 1.0
+                    });
+
+                    counters.forEach(counter => observer.observe(counter));
+                });
+            </script>
+
         </div>
 
 
@@ -80,11 +117,13 @@
                                     <td class="px-6 py-4">
                                         <span
                                             class="px-2 py-1 text-xs font-semibold rounded-lg
-                {{ $submission->status == 'Disetujui' ? 'bg-green-200 text-green-800' : '' }}
-                {{ $submission->status == 'Ditolak' ? 'bg-red-200 text-red-800' : '' }}
-                {{ $submission->status == 'Diproses' ? 'bg-yellow-200 text-yellow-800' : '' }}">
+                                        {{ $submission->status == 'Disetujui' ? 'bg-blue-200 text-blue-800' : '' }}
+                                        {{ $submission->status == 'Selesai' ? 'bg-green-200 text-green-800' : '' }}
+                                        {{ $submission->status == 'Ditolak' ? 'bg-red-200 text-red-800' : '' }}
+                                        {{ $submission->status == 'Diproses' ? 'bg-yellow-200 text-yellow-800' : '' }}">
                                             {{ $submission->status }}
                                         </span>
+
                                     </td>
                                 </tr>
                             @endforeach

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -25,7 +25,7 @@
 </head>
 
 
-<body class="">
+<body class="scroll-smooth">
     <nav class="flex justify-center">
         <div class=" bg-white fixed w-full z-20 top-0 flex justify-center ">
             <div class="container">

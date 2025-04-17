@@ -1,5 +1,5 @@
 <aside id="logo-sidebar"
-    class="fixed top-10 left-0 z-10 w-80 h-screen pt-20 transition-transform -translate-x-full bg-white lg:translate-x-0"
+    class="fixed top-20 left-0 z-50 w-80 h-screen pt-10 transition-transform -translate-x-full bg-white lg:translate-x-0"
     aria-label="Sidebar">
     <div class="h-full pl-8 pr-8 lg:pr-0 pb-4 overflow-y-auto bg-white">
         <ul class="space-y-2 font-medium">
@@ -23,8 +23,13 @@
                     <img class="w-6 h-auto object-contain " src="{{ asset('img/beranda/formulir-icon.png') }}"
                         alt="">
                     <span class="flex-1 ms-4  text-xl poppins-regular">Pengajuan</span>
+                    @php
+                        $countProses = \App\Models\Submission::where('status', 'Diproses')->count();
+                    @endphp
                     <span
-                        class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-300 rounded-full">3</span>
+                        class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-yellow-800 bg-yellow-200 rounded-full">
+                        {{ $countProses }}
+                    </span>
                     {{-- <span class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full">Pro</span> --}}
                 </a>
             </li>

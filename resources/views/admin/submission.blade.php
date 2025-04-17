@@ -33,6 +33,7 @@
                     </option>
                     <option value="Ditolak" {{ request('status') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
                     <option value="Diproses" {{ request('status') == 'Diproses' ? 'selected' : '' }}>Diproses</option>
+                    <option value="Selesai" {{ request('status') == 'Selesai' ? 'selected' : '' }}>Selesai</option>
                 </select>
             </div>
 
@@ -84,11 +85,11 @@
         </script>
 
 
-        <div class="shadow-md shadow-gray-400 w-full h-auto bg-gray-200 rounded-sm p-4">
-            <div class="pb-2">
+        <div class=" w-full h-auto bg-gray-200 rounded-t-xl">
+            <div class="p-4">
                 <p class="poppins-semibold text-[#06275A] text-xl pl-2">Daftar Pengajuan</p>
             </div>
-            <div class="relative overflow-x-auto  rounded-xl">
+            <div class="relative overflow-x-auto ">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
@@ -115,10 +116,16 @@
 
                                 <td class="text-center px-6 py-4">
                                     <span
-                                        class="px-2 py-1 rounded-lg text-xs font-medium
-                                        {{ $submission->status == 'Disetujui' ? 'bg-green-200 text-green-800' : ($submission->status == 'Ditolak' ? 'bg-red-200 text-red-800' : 'bg-yellow-200 text-yellow-800') }}">
+                                        class="{{ $submission->status == 'Disetujui'
+                                            ? 'bg-blue-200 text-blue-800'
+                                            : ($submission->status == 'Selesai'
+                                                ? 'bg-green-200 text-green-800'
+                                                : ($submission->status == 'Ditolak'
+                                                    ? 'bg-red-200 text-red-800'
+                                                    : 'bg-yellow-200 text-yellow-800')) }} px-2 py-1 rounded">
                                         {{ $submission->status }}
                                     </span>
+
                                 </td>
                                 <td class="px-6 py-4">{{ $submission->notes ?? 'Kosong' }}</td>
 
@@ -156,14 +163,14 @@
                     </tbody>
                 </table>
 
-                <!-- Pagination -->
-                <div class="mt-4">
-                    {{ $submissions->links() }}
-                </div>
 
 
             </div>
 
+        </div>
+        <!-- Pagination -->
+        <div class="mt-4 px-4">
+            {{ $submissions->links() }}
         </div>
     </div>
 
@@ -197,6 +204,7 @@
                         </div>
 
                         <!-- Form untuk Update Status -->
+                        <!-- Form untuk Update Status -->
                         <form action="{{ route('submission.update', $update->id) }}" method="POST"
                             class="mt-4 space-y-4">
                             @csrf
@@ -206,24 +214,52 @@
                             <div>
                                 <label for="status" class="block text-sm font-medium text-gray-700">Pilih
                                     Status</label>
-                                <select id="status-{{ $update->id }}" name="status"
-                                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-                                    <option value="Disetujui">Disetujui</option>
-                                    <option value="Diproses">Diproses</option>
-                                    <option value="Ditolak">Ditolak</option>
+                                    <select id="status-{{ $update->id }}" name="status"
+                                        data-type="{{ $update->type }}"
+                                        onchange="handleStatusChange({{ $update->id }})"
+                                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="Disetujui" {{ $update->status == 'Disetujui' ? 'selected' : '' }}>
+                                        Disetujui</option>
+                                    <option value="Diproses" {{ $update->status == 'Diproses' ? 'selected' : '' }}>
+                                        Diproses</option>
+                                    <option value="Ditolak" {{ $update->status == 'Ditolak' ? 'selected' : '' }}>
+                                        Ditolak</option>
+                                    <option value="Selesai" {{ $update->status == 'Selesai' ? 'selected' : '' }}>
+                                        Selesai</option>
                                 </select>
                             </div>
 
-                            <!-- Input Catatan (Hanya jika Ditolak) -->
-                            <div id="notes-field-{{ $update->id }}" class="hidden">
-                                <label for="notes" class="block text-sm font-medium text-gray-700">Catatan (Hanya
-                                    jika Ditolak)</label>
-                                <textarea id="notes-{{ $update->id }}" name="notes"
-                                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                                    rows="3"></textarea>
+                            <!-- Input Tanggal (Hanya jika Disetujui) -->
+                            <div id="date-field-{{ $update->id }}" class="hidden">
+                                <label for="date" class="block text-sm font-medium text-gray-700">Tanggal
+                                    Persetujuan</label>
+                                <input type="date" id="date-{{ $update->id }}" name="date"
+                                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+
+                            <!-- Input Catatan (Selalu Ditampilkan) -->
+                            <!-- Input Catatan -->
+                            <div id="notes-field-{{ $update->id }}">
+                                <label for="notes" class="block text-sm font-medium text-gray-700">Catatan</label>
+
+                                <!-- Teks Statis untuk Status 'Selesai' -->
+                                <p id="notes-text-{{ $update->id }}"
+                                    class="{{ $update->status == 'Selesai' ? '' : 'hidden' }}">
+                                    {{ $update->status == 'Selesai' ? 'Dokumen telah selesai pada tanggal ' . now()->format('d F Y') : '' }}
+                                </p>
+
+                                <!-- Textarea untuk Status 'Disetujui' dan 'Ditolak' -->
+                                <textarea id="notes-textarea-{{ $update->id }}" name="notes"
+                                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 {{ $update->status == 'Selesai' ? 'hidden' : '' }}"
+                                    rows="3">{{ $update->status == 'Selesai' ? '' : $update->notes }}</textarea>
+
+                                <!-- Input Hidden untuk Menyimpan Nilai Notes -->
+                                <input type="hidden" id="notes-hidden-{{ $update->id }}" name="notes"
+                                    value="{{ $update->status == 'Selesai' ? 'Dokumen telah selesai pada tanggal ' . now()->format('d F Y') : $update->notes }}">
 
                                 <!-- Pilihan Alasan Penolakan -->
-                                <div class="mt-2">
+                                <div id="rejection-reasons-{{ $update->id }}"
+                                    class="mt-2 {{ $update->status == 'Ditolak' ? '' : 'hidden' }}">
                                     <p class="text-sm font-medium text-gray-700">Pilih Alasan:</p>
                                     <ul class="space-y-1">
                                         <li class="cursor-pointer w-auto text-red-600 hover:underline"
@@ -239,18 +275,151 @@
                                 </div>
                             </div>
 
+
                             <!-- Tombol Submit -->
                             <button type="submit"
                                 class="w-full px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
                                 Update Status
                             </button>
                         </form>
+
+                        <script>
+    function handleStatusChange(id) {
+        let statusElement = document.getElementById(`status-${id}`);
+        let status = statusElement.value;
+        let type = statusElement.dataset.type;
+
+        let notesField = document.getElementById(`notes-field-${id}`);
+        let rejectionReasons = document.getElementById(`rejection-reasons-${id}`);
+        let dateField = document.getElementById(`date-field-${id}`);
+        let notesText = document.getElementById(`notes-text-${id}`);
+        let notesTextarea = document.getElementById(`notes-textarea-${id}`);
+        let notesHiddenInput = document.getElementById(`notes-hidden-${id}`);
+        let dateInput = document.getElementById(`date-${id}`);
+
+        if (status === 'Ditolak') {
+            notesField.classList.remove('hidden');
+            rejectionReasons.classList.remove('hidden');
+            dateField.classList.add('hidden');
+            notesText.classList.add('hidden');
+            notesTextarea.classList.remove('hidden');
+            notesTextarea.disabled = false;
+            notesHiddenInput.value = "";
+        } else if (status === 'Disetujui') {
+    notesField.classList.remove('hidden');
+    rejectionReasons.classList.add('hidden');
+    dateField.classList.remove('hidden');
+    notesTextarea.disabled = true;
+    notesTextarea.value = "";
+    notesTextarea.placeholder = "Boleh di Kosongkan";
+
+    if (type === 'KK' || type === 'KTP') {
+        notesText.classList.remove('hidden');
+        notesTextarea.classList.add('hidden');
+        notesTextarea.disabled = true;
+
+
+
+        dateInput.addEventListener('input', function () {
+            updateApprovalText(id, type);
+        });
+    } else {
+        // Selain KK dan KTP
+        notesText.classList.add('hidden');
+        notesTextarea.classList.remove('hidden');
+        notesTextarea.disabled = false;
+        notesHiddenInput.value = notesTextarea.value;
+        dateField.classList.add('hidden'); // Gak perlu tanggal
+    }
+} else if (status === 'Selesai') {
+    notesField.classList.remove('hidden');
+    rejectionReasons.classList.add('hidden');
+    dateField.classList.add('hidden');
+
+    // Ubah bagian ini agar textarea ditampilkan untuk input nama pengambil
+    notesText.classList.add('hidden');
+    notesTextarea.classList.remove('hidden');
+    notesTextarea.disabled = false;
+
+    // Set placeholder untuk textarea
+    notesTextarea.placeholder = "Masukkan Catatan Untuk Pengaju";
+
+    // Set nilai awal untuk textarea jika belum ada
+    if (!notesTextarea.value || notesTextarea.value.indexOf("Dokumen telah di ambil oleh") === -1) {
+        notesTextarea.value = "Dokumen telah di ambil oleh ";
+    }
+
+    // Update hidden input ketika textarea diubah
+    notesTextarea.addEventListener('input', function() {
+        notesHiddenInput.value = notesTextarea.value;
+    });
+
+    // Set nilai awal untuk hidden input
+    notesHiddenInput.value = notesTextarea.value;
+} else {
+            notesField.classList.add('hidden');
+            rejectionReasons.classList.add('hidden');
+            dateField.classList.add('hidden');
+            notesText.classList.add('hidden');
+            notesTextarea.classList.add('hidden');
+            notesTextarea.disabled = true;
+            notesHiddenInput.value = "";
+        }
+    }
+
+    function updateApprovalText(id, type) {
+    let dateInput = document.getElementById(`date-${id}`);
+    let notesText = document.getElementById(`notes-text-${id}`);
+    let notesHiddenInput = document.getElementById(`notes-hidden-${id}`);
+
+    if (dateInput.value) {
+        let selectedDate = new Date(dateInput.value).toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+
+        if (type === 'KK') {
+            notesText.innerText = `Dokumen dapat diambil pada tanggal ${selectedDate}`;
+            notesHiddenInput.value = `Dokumen dapat diambil pada tanggal ${selectedDate}`;
+        } else if (type === 'KTP') {
+            notesText.innerText = `Silahkan ambil di kantor kecamatan pada tanggal ${selectedDate}`;
+            notesHiddenInput.value = `Silahkan ambil di kantor kecamatan pada tanggal ${selectedDate}`;
+        }
+    }
+}
+
+    function setNotes(id, text) {
+        let textarea = document.getElementById(`notes-textarea-${id}`);
+        let hiddenInput = document.getElementById(`notes-hidden-${id}`);
+        textarea.value = text;
+        hiddenInput.value = text;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let statusFields = document.querySelectorAll("[id^=status-]");
+        statusFields.forEach(field => {
+            let id = field.id.split('-')[1];
+            handleStatusChange(id);
+        });
+
+        let dateInputs = document.querySelectorAll("[id^=date-]");
+        dateInputs.forEach(dateInput => {
+            let id = dateInput.id.split('-')[1];
+            let type = document.getElementById(`status-${id}`).dataset.type;
+            if (dateInput.value && type === 'KK') {
+                updateApprovalText(id, type);
+            }
+        });
+    });
+</script>
+
                     </div>
                 </div>
             </div>
         </div>
 
-        <script>
+        {{-- <script>
             document.getElementById('status-{{ $update->id }}').addEventListener('change', function() {
                 var notesField = document.getElementById('notes-field-{{ $update->id }}');
                 notesField.classList.toggle('hidden', this.value !== 'Ditolak');
@@ -259,7 +428,7 @@
             function setNotes(id, text) {
                 document.getElementById('notes-' + id).value = text;
             }
-        </script>
+        </script> --}}
     @empty
     @endforelse
 
