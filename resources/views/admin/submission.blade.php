@@ -13,6 +13,7 @@
                     class="border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-300 block w-full sm:max-w-60 md:max-w-none md:w-auto p-2.5">
                     <option value="">Semua Jenis</option>
                     <option value="KTP" {{ request('type') == 'KTP' ? 'selected' : '' }}>KTP</option>
+                     <option value="KIA" {{ request('type') == 'KIA' ? 'selected' : '' }}>KIA</option>
                     <option value="Kartu Keluarga" {{ request('type') == 'Kartu Keluarga' ? 'selected' : '' }}>Kartu
                         Keluarga</option>
                     <option value="Surat Pindah" {{ request('type') == 'Surat Pindah' ? 'selected' : '' }}>Surat Pindah
@@ -214,9 +215,10 @@
                             <div>
                                 <label for="status" class="block text-sm font-medium text-gray-700">Pilih
                                     Status</label>
-                                <select id="status-{{ $update->id }}" name="status"
-                                    onchange="handleStatusChange({{ $update->id }})"
-                                    class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                                    <select id="status-{{ $update->id }}" name="status"
+                                        data-type="{{ $update->type }}"
+                                        onchange="handleStatusChange({{ $update->id }})"
+                                        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                                     <option value="Disetujui" {{ $update->status == 'Disetujui' ? 'selected' : '' }}>
                                         Disetujui</option>
                                     <option value="Diproses" {{ $update->status == 'Diproses' ? 'selected' : '' }}>
@@ -283,116 +285,135 @@
                         </form>
 
                         <script>
-                            function handleStatusChange(id) {
-                                let status = document.getElementById(`status-${id}`).value;
-                                let notesField = document.getElementById(`notes-field-${id}`);
-                                let rejectionReasons = document.getElementById(`rejection-reasons-${id}`);
-                                let dateField = document.getElementById(`date-field-${id}`);
-                                let notesText = document.getElementById(`notes-text-${id}`);
-                                let notesTextarea = document.getElementById(`notes-textarea-${id}`);
-                                let notesHiddenInput = document.getElementById(`notes-hidden-${id}`);
-                                let dateInput = document.getElementById(`date-${id}`);
+    function handleStatusChange(id) {
+        let statusElement = document.getElementById(`status-${id}`);
+        let status = statusElement.value;
+        let type = statusElement.dataset.type;
 
-                                if (status === 'Ditolak') {
-                                    notesField.classList.remove('hidden');
-                                    rejectionReasons.classList.remove('hidden');
-                                    dateField.classList.add('hidden');
+        let notesField = document.getElementById(`notes-field-${id}`);
+        let rejectionReasons = document.getElementById(`rejection-reasons-${id}`);
+        let dateField = document.getElementById(`date-field-${id}`);
+        let notesText = document.getElementById(`notes-text-${id}`);
+        let notesTextarea = document.getElementById(`notes-textarea-${id}`);
+        let notesHiddenInput = document.getElementById(`notes-hidden-${id}`);
+        let dateInput = document.getElementById(`date-${id}`);
 
-                                    notesText.classList.add('hidden'); // Sembunyikan teks statis
-                                    notesTextarea.classList.remove('hidden'); // Tampilkan textarea
-                                    notesTextarea.disabled = false; // Aktifkan textarea
-                                    notesHiddenInput.value = ""; // Kosongkan agar user isi sendiri
-                                } else if (status === 'Disetujui') {
-                                    notesField.classList.remove('hidden');
-                                    rejectionReasons.classList.add('hidden');
-                                    dateField.classList.remove('hidden'); // Tampilkan input tanggal
+        if (status === 'Ditolak') {
+            notesField.classList.remove('hidden');
+            rejectionReasons.classList.remove('hidden');
+            dateField.classList.add('hidden');
+            notesText.classList.add('hidden');
+            notesTextarea.classList.remove('hidden');
+            notesTextarea.disabled = false;
+            notesHiddenInput.value = "";
+        } else if (status === 'Disetujui') {
+    notesField.classList.remove('hidden');
+    rejectionReasons.classList.add('hidden');
+    dateField.classList.remove('hidden');
+    notesTextarea.disabled = true;
+    notesTextarea.value = "";
+    notesTextarea.placeholder = "Boleh di Kosongkan";
 
-                                    notesText.classList.remove('hidden'); // Tampilkan teks statis
-                                    notesTextarea.classList.add('hidden'); // Sembunyikan textarea
-                                    notesTextarea.disabled = true; // Nonaktifkan textarea
-
-                                    // Pastikan teks langsung diperbarui jika tanggal sudah ada
-                                    if (dateInput.value) {
-                                        updateApprovalText(id);
-                                    } else {
-                                        notesText.innerText = `Dokumen dapat diambil pada tanggal: [Pilih tanggal]`;
-                                        notesHiddenInput.value = "";
-                                    }
-
-                                    // Tambahkan event listener untuk update teks saat tanggal dipilih
-                                    dateInput.addEventListener('input', function() {
-                                        updateApprovalText(id);
-                                    });
-                                } else if (status === 'Selesai') {
-                                    notesField.classList.remove('hidden');
-                                    rejectionReasons.classList.add('hidden');
-                                    dateField.classList.add('hidden'); // Sembunyikan input tanggal
-
-                                    let formattedDate = new Date().toLocaleDateString('id-ID', {
-                                        day: '2-digit',
-                                        month: 'long',
-                                        year: 'numeric'
-                                    });
-
-                                    notesText.innerText = `Dokumen telah selesai pada tanggal ${formattedDate}`;
-                                    notesHiddenInput.value = `Dokumen telah selesai pada tanggal ${formattedDate}`;
-
-                                    notesText.classList.remove('hidden'); // Tampilkan teks statis
-                                    notesTextarea.classList.add('hidden'); // Sembunyikan textarea
-                                    notesTextarea.disabled = true; // Nonaktifkan textarea
-                                } else {
-                                    notesField.classList.add('hidden');
-                                    rejectionReasons.classList.add('hidden');
-                                    dateField.classList.add('hidden');
-                                    notesText.classList.add('hidden'); // Sembunyikan teks statis
-                                    notesTextarea.classList.add('hidden'); // Sembunyikan textarea
-                                    notesTextarea.disabled = true; // Nonaktifkan textarea
-                                    notesHiddenInput.value = "";
-                                }
-                            }
-
-                            // Fungsi untuk mengupdate teks saat tanggal disetujui dipilih
-                            function updateApprovalText(id) {
-                                let dateInput = document.getElementById(`date-${id}`);
-                                let notesText = document.getElementById(`notes-text-${id}`);
-                                let notesHiddenInput = document.getElementById(`notes-hidden-${id}`);
-
-                                if (dateInput.value) {
-                                    let selectedDate = new Date(dateInput.value).toLocaleDateString('id-ID', {
-                                        day: '2-digit',
-                                        month: 'long',
-                                        year: 'numeric'
-                                    });
-
-                                    notesText.innerText = `Dokumen telah disetujui pada tanggal ${selectedDate}`;
-                                    notesHiddenInput.value = `Dokumen telah disetujui pada tanggal ${selectedDate}`;
-                                }
-                            }
-
-                            document.addEventListener("DOMContentLoaded", function() {
-                                let statusFields = document.querySelectorAll("[id^=status-]");
-                                statusFields.forEach(field => {
-                                    let id = field.id.split('-')[1];
-                                    handleStatusChange(id);
-                                });
-
-                                // Pastikan jika ada tanggal yang sudah disimpan, langsung ditampilkan
-                                let dateInputs = document.querySelectorAll("[id^=date-]");
-                                dateInputs.forEach(dateInput => {
-                                    let id = dateInput.id.split('-')[1];
-                                    if (dateInput.value) {
-                                        updateApprovalText(id);
-                                    }
-                                });
-                            });
-                        </script>
+    if (type === 'KK' || type === 'KTP') {
+        notesText.classList.remove('hidden');
+        notesTextarea.classList.add('hidden');
+        notesTextarea.disabled = true;
 
 
 
+        dateInput.addEventListener('input', function () {
+            updateApprovalText(id, type);
+        });
+    } else {
+        // Selain KK dan KTP
+        notesText.classList.add('hidden');
+        notesTextarea.classList.remove('hidden');
+        notesTextarea.disabled = false;
+        notesHiddenInput.value = notesTextarea.value;
+        dateField.classList.add('hidden'); // Gak perlu tanggal
+    }
+} else if (status === 'Selesai') {
+    notesField.classList.remove('hidden');
+    rejectionReasons.classList.add('hidden');
+    dateField.classList.add('hidden');
 
+    // Ubah bagian ini agar textarea ditampilkan untuk input nama pengambil
+    notesText.classList.add('hidden');
+    notesTextarea.classList.remove('hidden');
+    notesTextarea.disabled = false;
 
+    // Set placeholder untuk textarea
+    notesTextarea.placeholder = "Masukkan Catatan Untuk Pengaju";
 
+    // Set nilai awal untuk textarea jika belum ada
+    if (!notesTextarea.value || notesTextarea.value.indexOf("Dokumen telah di ambil oleh") === -1) {
+        notesTextarea.value = "Dokumen telah di ambil oleh ";
+    }
 
+    // Update hidden input ketika textarea diubah
+    notesTextarea.addEventListener('input', function() {
+        notesHiddenInput.value = notesTextarea.value;
+    });
+
+    // Set nilai awal untuk hidden input
+    notesHiddenInput.value = notesTextarea.value;
+} else {
+            notesField.classList.add('hidden');
+            rejectionReasons.classList.add('hidden');
+            dateField.classList.add('hidden');
+            notesText.classList.add('hidden');
+            notesTextarea.classList.add('hidden');
+            notesTextarea.disabled = true;
+            notesHiddenInput.value = "";
+        }
+    }
+
+    function updateApprovalText(id, type) {
+    let dateInput = document.getElementById(`date-${id}`);
+    let notesText = document.getElementById(`notes-text-${id}`);
+    let notesHiddenInput = document.getElementById(`notes-hidden-${id}`);
+
+    if (dateInput.value) {
+        let selectedDate = new Date(dateInput.value).toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+        });
+
+        if (type === 'KK') {
+            notesText.innerText = `Dokumen dapat diambil pada tanggal ${selectedDate}`;
+            notesHiddenInput.value = `Dokumen dapat diambil pada tanggal ${selectedDate}`;
+        } else if (type === 'KTP') {
+            notesText.innerText = `Silahkan ambil di kantor kecamatan pada tanggal ${selectedDate}`;
+            notesHiddenInput.value = `Silahkan ambil di kantor kecamatan pada tanggal ${selectedDate}`;
+        }
+    }
+}
+
+    function setNotes(id, text) {
+        let textarea = document.getElementById(`notes-textarea-${id}`);
+        let hiddenInput = document.getElementById(`notes-hidden-${id}`);
+        textarea.value = text;
+        hiddenInput.value = text;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let statusFields = document.querySelectorAll("[id^=status-]");
+        statusFields.forEach(field => {
+            let id = field.id.split('-')[1];
+            handleStatusChange(id);
+        });
+
+        let dateInputs = document.querySelectorAll("[id^=date-]");
+        dateInputs.forEach(dateInput => {
+            let id = dateInput.id.split('-')[1];
+            let type = document.getElementById(`status-${id}`).dataset.type;
+            if (dateInput.value && type === 'KK') {
+                updateApprovalText(id, type);
+            }
+        });
+    });
+</script>
 
                     </div>
                 </div>
@@ -475,9 +496,15 @@
             <div class="relative p-4 w-full max-w-md bg-white rounded-lg shadow-lg">
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between p-4 border-b border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900">
-                        Syarat Pembuatan {{ $info->type }}
-                    </h3>
+                    <div class="flex flex-col space-y-2">
+    <h3 class="text-lg font-semibold text-gray-900">
+        Syarat Pembuatan {{ $info->type }}
+    </h3>
+    <h2 class="text-lg font-semibold text-gray-800">
+        {{ $info->subtype }}
+    </h2>
+</div>
+
                     <button type="button"
                         class="text-gray-400 hover:bg-gray-200 hover:text-gray-900
                     rounded-lg text-sm w-8 h-8 flex justify-center items-center"
@@ -537,7 +564,6 @@
             document.getElementById('modal-image').src = imageSrc;
             document.getElementById('image-modal').classList.remove('hidden');
         }
-
         function closeImageModal() {
             document.getElementById('image-modal').classList.add('hidden');
         }
