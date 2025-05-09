@@ -118,7 +118,7 @@ class SubmissionAdminController extends Controller
                         $submission->notes = null;
                     }
                 } else {
-                    $submission->notes = null;
+                    $submission->notes = "Dokumen dapat diambil di kantor kecamatan";
                 }
             } elseif ($request->status === 'Selesai') {
                 // Gunakan input notes dari form untuk semua jenis dokumen

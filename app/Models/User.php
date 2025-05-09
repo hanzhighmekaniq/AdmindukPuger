@@ -52,4 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Submission::class, 'user_id', 'id'); // Menentukan foreign key dan local key
     }
+
+    public function submissions(): HasMany
+    {
+        return $this->hasMany(Submission::class, 'user_id', 'id');
+    }
 }

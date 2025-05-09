@@ -12,7 +12,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::where('role', 'user'); // Menampilkan hanya user dengan role "user"
+        $query = User::where('role', 'user');
         $search = $request->input('search');
 
         if (!empty($search)) {
@@ -61,6 +61,12 @@ class UserController extends Controller
         //
     }
 
+    public function detail(string $id)
+    {
+        $user = User::findOrFail($id);
+        $submissions = $user->submissions()->orderBy('created_at', 'desc')->get();
+        return view('admin.user-detail', compact('user', 'submissions'));
+    }
     /**
      * Update the specified resource in storage.
      */
