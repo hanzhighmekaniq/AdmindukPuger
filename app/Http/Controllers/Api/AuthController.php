@@ -23,14 +23,18 @@ class AuthController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
                 'password' => 'required',
-                'address' => 'required'
+                'address' => 'required',
+                'nik' => 'required',
+                'nokk' => 'required'
             ]);
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'address' => $request->address,
-                'role' => 'user'
+                'role' => 'user',
+                'nokk' => $request->nokk,
+                'nik' => $request->nik
             ]);
 
             // Kirim email verifikasi

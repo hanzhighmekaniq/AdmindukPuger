@@ -487,26 +487,26 @@ public function submission(Request $request)
                                     ->where('type', 'KTP')
                                     ->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at terbaru
                                     ->get(),
-                'kk' => Submission::where('user_id', $userId)
-                                  ->where('type', 'Kartu Keluarga')
-                                  ->orderBy('created_at', 'desc')
-                                  ->get(),
-                'birth_certif' => Submission::where('user_id', $userId)
-                                            ->where('type', 'Akta Kelahiran')
-                                            ->orderBy('created_at', 'desc')
-                                            ->get(),
-                'die_certif' => Submission::where('user_id', $userId)
-                                          ->where('type', 'Akta Kematian')
-                                          ->orderBy('created_at', 'desc')
-                                          ->get(),
-                'moving_letter' => Submission::where('user_id', $userId)
-                                              ->where('type', 'Surat Pindah')
+            //     'kk' => Submission::where('user_id', $userId)
+            //                       ->where('type', 'Kartu Keluarga')
+              //                     ->orderBy('created_at', 'desc')
+           //                        ->get(),
+          //       'birth_certif' => Submission::where('user_id', $userId)
+           //                                  ->where('type', 'Akta Kelahiran')
+          //                                   ->orderBy('created_at', 'desc')
+          //                                   ->get(),
+          //       'die_certif' => Submission::where('user_id', $userId)
+        //                                   ->where('type', 'Akta Kematian')
+          //                                 ->orderBy('created_at', 'desc')
+           //                                ->get(),
+           //      'moving_letter' => Submission::where('user_id', $userId)
+                //                               ->where('type', 'Surat Pindah')
+             //                                  ->orderBy('created_at', 'desc')
+         //                                       ->get(),
+              'kia' => Submission::where('user_id', $userId)
+                                    ->where('type', 'KIA')
                                               ->orderBy('created_at', 'desc')
-                                              ->get(),
-                'kia' => Submission::where('user_id', $userId)
-                                              ->where('type', 'KIA')
-                                              ->orderBy('created_at', 'desc')
-                                              ->get(),
+                                             ->get(),
             ]
         ]);
     } catch (\Exception $e) {
