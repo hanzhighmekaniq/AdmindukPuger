@@ -17,7 +17,7 @@
                             antre!
                             Nikmati kemudahan akses dari mana saja!
                         </h2>
-                        <button
+                        <button onclick="window.location.href='{{asset('storage/adminduk.apk')}}'"
                             class="px-14 py-2 flex items-center justify-center text-white text-xs md:text-xl font-semibold bg-gradient-to-br from-[#5482B4] to-[#021124] rounded-2xl shadow-lg hover:opacity-90 transition">
                             Coba Sekarang
                         </button>

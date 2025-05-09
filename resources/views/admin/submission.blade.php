@@ -13,6 +13,7 @@
                     class="border border-gray-400 text-gray-900 text-sm rounded-lg focus:ring-blue-300 focus:border-blue-300 block w-full sm:max-w-60 md:max-w-none md:w-auto p-2.5">
                     <option value="">Semua Jenis</option>
                     <option value="KTP" {{ request('type') == 'KTP' ? 'selected' : '' }}>KTP</option>
+                     <option value="KIA" {{ request('type') == 'KIA' ? 'selected' : '' }}>KIA</option>
                     <option value="Kartu Keluarga" {{ request('type') == 'Kartu Keluarga' ? 'selected' : '' }}>Kartu
                         Keluarga</option>
                     <option value="Surat Pindah" {{ request('type') == 'Surat Pindah' ? 'selected' : '' }}>Surat Pindah
@@ -495,9 +496,15 @@
             <div class="relative p-4 w-full max-w-md bg-white rounded-lg shadow-lg">
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between p-4 border-b border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-900">
-                        Syarat Pembuatan {{ $info->type }}
-                    </h3>
+                    <div class="flex flex-col space-y-2">
+    <h3 class="text-lg font-semibold text-gray-900">
+        Syarat Pembuatan {{ $info->type }}
+    </h3>
+    <h2 class="text-lg font-semibold text-gray-800">
+        {{ $info->subtype }}
+    </h2>
+</div>
+
                     <button type="button"
                         class="text-gray-400 hover:bg-gray-200 hover:text-gray-900
                     rounded-lg text-sm w-8 h-8 flex justify-center items-center"
@@ -557,7 +564,6 @@
             document.getElementById('modal-image').src = imageSrc;
             document.getElementById('image-modal').classList.remove('hidden');
         }
-
         function closeImageModal() {
             document.getElementById('image-modal').classList.add('hidden');
         }

@@ -82,11 +82,11 @@
 
                                 <td class="text-center px-6 py-4">
                                     <div class="flex flex-row justify-center">
-                                        <button type="button" href="{{ route('user.detail', $users->id) }}"
+                                        <a href="{{ route('user.detail', $users->id) }}"
                                             class="p-1 flex-shrink-0">
                                             <img class="w-auto h-6 lg:h-6 object-contain"
                                                 src="{{ asset('img/info-icon.png') }}" alt="Detail">
-                                        </button>
+                                        </a>
                                         <button type="button" data-modal-target="modal-edit-user-{{ $users->id }}"
                                             data-modal-toggle="modal-edit-user-{{ $users->id }}"
                                             class="p-1 flex-shrink-0">

@@ -21,6 +21,14 @@
                     <td>{{ $user->email }}</td>
                 </tr>
                 <tr>
+                    <th class="font-semibold">No. KK</th>
+                    <td>{{ $user->nokk }}</td>
+                </tr>
+                <tr>
+                    <th class="font-semibold">NIK</th>
+                    <td>{{ $user->nik }}</td>
+                </tr>
+                <tr>
                     <th class="font-semibold">Alamat</th>
                     <td>{{ $user->address ?? '-' }}</td>
                 </tr>
@@ -66,4 +74,5 @@
             </div>
         </div>
     </div>
+
 </x-AppLayout>
