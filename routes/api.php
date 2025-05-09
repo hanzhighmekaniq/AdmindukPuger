@@ -39,8 +39,12 @@ Route::get('/docs/download/{id}',[DocsController::class,'downloadcocs'])->name('
 
 
 Route::post('/ektp',[SubmissionController::class,'newektp'])->name('ktp.create');
-
+Route::post('lostektp',[SubmissionController::class,'lostektp'])->name('lots_create');
+Route::post('/damagedektp',[SubmissionController::class,'damagedektp'])->name('damaged_create');
 Route::post('/kk', [SubmissionController::class,'newkk'])->name('kk.create');
+
+Route::post('/kiaunder5',[SubmissionController::class,'kiaunder5'])->name('kiaunder5');
+Route::post('/kia5',[SubmissionController::class,'kia5'])->name('kia5');
 
 Route::post('/birthcertif', [SubmissionController::class,'birthcertif'])->name('birthcertif.create');
 

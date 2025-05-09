@@ -23,14 +23,18 @@ class AuthController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
                 'password' => 'required',
-                'address' => 'required'
+                'address' => 'required',
+                'nik' => 'required',
+                'nokk' => 'required'
             ]);
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'address' => $request->address,
-                'role' => 'user'
+                'role' => 'user',
+                'nokk' => $request->nokk,
+                'nik' => $request->nik
             ]);
 
             // Kirim email verifikasi
@@ -185,17 +189,20 @@ class AuthController extends Controller
             $request->validate([
                 'name' => 'nullable',
                 'email' => 'nullable|email',
-                'address' => 'nullable',
+                'phone' => "nullable",
                 'password' => 'nullable|min:8',
+                'nik' => 'nullable',
+                'nokk' => 'nullable'
             ]);
             $user = Auth::user();
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->address = $request->address;
-
+            $user->phone = $request->phone;
+            $user->nik = $request->nik;
+            $user->nokk = $request->nokk;
             // Jika password diinputkan, maka update password
             if ($request->filled('password')) {
-                $user->password = Hash::make($request->password);
+                $user->password = ($request->password);
             }
             $user->save();
             return response()->json([

@@ -18,9 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('submission', SubmissionAdminController::class);
     Route::resource('document', DocumentController::class);
     Route::resource('user', UserController::class);
-
-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('userdetail/{id}', [UserController::class, 'detail'])->name('user.detail');
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

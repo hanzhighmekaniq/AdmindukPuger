@@ -12,6 +12,7 @@ use App\Models\MovingLater;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+
 class SubmissionAdminController extends Controller
 {
 
@@ -110,15 +111,24 @@ class SubmissionAdminController extends Controller
                     } else {
                         $submission->notes = null;
                     }
-                } elseif ($submission->type === 'KTP') {
+                }elseif ($submission->type === "KIA") {
+                        if($submission->subtype === "KIA Sudah Umur 5 Tahun"){
+                            $submission->notes = "Silahkan datang ke kantor untuk melakukan perekaman biometrik";
+                        }else{
+                            $submission->notes = $request->notes;
+                        }
+                }
+                elseif ($submission->type === 'KTP') {
                     if ($request->date) {
                         $kekantor = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
                         $submission->notes = "Silahkan Datang ke kantor kecamatan untuk perekaman Biometrik pada tanggal $kekantor";
                     } else {
                         $submission->notes = null;
                     }
-                } else {
-                    $submission->notes = null;
+
+                }else {
+                     $submission->notes = "Dokumen dapat diambil di kantor kecamatan";
+
                 }
             } elseif ($request->status === 'Selesai') {
                 // Gunakan input notes dari form untuk semua jenis dokumen
@@ -166,4 +176,6 @@ class SubmissionAdminController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+
+
 }

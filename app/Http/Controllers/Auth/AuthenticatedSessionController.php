@@ -23,8 +23,9 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
+   public function store(LoginRequest $request): RedirectResponse
+{
+    try {
         $request->authenticate();
         $request->session()->regenerate();
 
@@ -35,7 +36,14 @@ class AuthenticatedSessionController extends Controller
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);
+    } catch (\Exception $e) {
+        // Opsional: Log error untuk debugging
+        \Log::error('Login error: ' . $e->getMessage());
+
+        return redirect()->route('login')->with('error', 'Terjadi kesalahan saat login. Silahkan coba lagi.');
     }
+}
+
 
     /**
      * Destroy an authenticated session.
