@@ -12,6 +12,7 @@ use App\Models\MovingLater;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+
 class SubmissionAdminController extends Controller
 {
 
@@ -124,8 +125,10 @@ class SubmissionAdminController extends Controller
                     } else {
                         $submission->notes = null;
                     }
+
                 }else {
                      $submission->notes = "Dokumen dapat diambil di kantor kecamatan";
+
                 }
             } elseif ($request->status === 'Selesai') {
                 // Gunakan input notes dari form untuk semua jenis dokumen
@@ -173,6 +176,6 @@ class SubmissionAdminController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
-    
+
 
 }
