@@ -21,7 +21,8 @@ class SubmissionController extends Controller
         $req->validate([
             "kk" => "required|file|max:20480", // 20MB
             "user_id" => "required",
-            "name" => "required"
+            "name" => "required",
+
         ]);
         $kkPath = null;
 
@@ -31,6 +32,8 @@ class SubmissionController extends Controller
 
         $jsonData = [
             'kk' => $kkPath,
+            'nik' => $req->nik,
+            'nokk' => $req->nokk
         ];
 
         $submission = Submission::create([
@@ -39,6 +42,7 @@ class SubmissionController extends Controller
             'data' => json_encode($jsonData),
             'user_id' => $req->user_id,
             'status' => 'Diproses',
+            'subtype' => "KTP Baru",
             'notes' => null,
         ]);
 
@@ -54,6 +58,104 @@ class SubmissionController extends Controller
         ], 500);
     }
 }
+
+public function lostektp(Request $req)
+{
+    try {
+        $req->validate([
+            "kk" => "required|file|max:20480", // 20MB
+            "lostletter" => "required|file|max:20480",
+            "user_id" => "required",
+            "name" => "required",
+
+        ]);
+        $kkPath = null;
+        $form = null;
+
+        if ($req->hasFile('kk')) {
+            $kkPath = $req->file('kk')->store('images', 'public');
+        }
+        if ($req->hasFile('lostletter')){
+            $form = $req->file('lostletter')->store('images','public');
+        }
+
+        $jsonData = [
+            'kk' => $kkPath,
+            'lostletter' => $form,
+            'nik' => $req->nik,
+            'nokk' => $req->nokk
+        ];
+
+        $submission = Submission::create([
+            'name' => $req->name,
+            'type' => 'KTP',
+            'data' => json_encode($jsonData),
+            'user_id' => $req->user_id,
+            'status' => 'Diproses',
+            "subtype" => 'KTP Hilang',
+            'notes' => null,
+        ]);
+
+        return response()->json([
+            "status" => 200,
+            "data" => $submission
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 500,
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
+public function damagedektp(Request $req)
+{
+    try {
+        $req->validate([
+            "kk" => "required|file|max:20480", // 20MB
+            "user_id" => "required",
+            "name" => "required",
+
+        ]);
+        $kkPath = null;
+        $form = null;
+
+        if ($req->hasFile('kk')) {
+            $kkPath = $req->file('kk')->store('images', 'public');
+        }
+
+
+        $jsonData = [
+            'kk' => $kkPath,
+            'nik' => $req->nik,
+            'nokk' => $req->nokk
+        ];
+
+        $submission = Submission::create([
+            'name' => $req->name,
+            'type' => 'KTP',
+            'data' => json_encode($jsonData),
+            'user_id' => $req->user_id,
+            'status' => 'Diproses',
+            "subtype" => 'KTP Rusak',
+            'notes' => null,
+        ]);
+
+        return response()->json([
+            "status" => 200,
+            "data" => $submission
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 500,
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
 
 public function newkk(Request $req)
 {
@@ -270,20 +372,147 @@ public function movingletter(Request $req)
     }
 }
 
+public function kiaunder5(Request $req)
+{
+    try {
+        $req->validate([
+            "kk" => "required|file|max:20480", // 20MB
+            "user_id" => "required",
+            "name" => "required",
+            "akta" => "required|file|max:20480",
+            "ktp" => "required|file|max:40480"
+        ]);
+        $kkPath = null;
+        $form = null;
+        $akta = null;
+        $ktp = null;
+
+        if ($req->hasFile('kk')) {
+            $kkPath = $req->file('kk')->store('images', 'public');
+        }
+        if ($req->hasFile('akta')) {
+            $akta = $req->file('akta')->store('image','public');
+        }
+        if ($req->hasFile('ktp')) {
+            $ktp = $req->file('ktp')->store('image','public');
+        }
+        $jsonData = [
+            'kk' => $kkPath,
+            'akta' => $akta,
+            'ktp' => $ktp
+        ];
+
+        $submission = Submission::create([
+            'name' => $req->name,
+            'type' => 'KIA',
+            'data' => json_encode($jsonData),
+            'user_id' => $req->user_id,
+            'status' => 'Diproses',
+            "subtype" => 'KIA Belum 5 Tahun',
+            'notes' => null,
+        ]);
+
+        return response()->json([
+            "status" => 200,
+            "data" => $submission
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 500,
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+public function kia5(Request $req)
+{
+    try {
+        $req->validate([
+            "kk" => "required|file|max:20480", // 20MB
+            "user_id" => "required",
+            "name" => "required",
+            "akta" => "required|file|max:20480",
+            "ktp" => "required|file|max:40480"
+        ]);
+        $kkPath = null;
+        $form = null;
+        $akta = null;
+        $ktp = null;
+
+        if ($req->hasFile('kk')) {
+            $kkPath = $req->file('kk')->store('images', 'public');
+        }
+        if ($req->hasFile('akta')) {
+            $akta = $req->file('akta')->store('image','public');
+        }
+        if ($req->hasFile('ktp')) {
+            $ktp = $req->file('ktp')->store('image','public');
+        }
+        $jsonData = [
+            'kk' => $kkPath,
+            'akta' => $akta,
+            'ktp' => $ktp
+        ];
+
+        $submission = Submission::create([
+            'name' => $req->name,
+            'type' => 'KIA',
+            'data' => json_encode($jsonData),
+            'user_id' => $req->user_id,
+            'status' => 'Diproses',
+            "subtype" => 'KIA Sudah Umur 5 Tahun',
+            'notes' => null,
+        ]);
+
+        return response()->json([
+            "status" => 200,
+            "data" => $submission
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 500,
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
+
+
 
 public function submission(Request $request)
 {
     try {
         $userId = $request->user()->id;
-
         return response()->json([
             'status' => 200,
             'data' => [
-                'ektp' => Submission::where('user_id', $userId)->where('type', 'KTP')->get(),
-                'kk' => Submission::where('user_id', $userId)->where('type', 'Kartu Keluarga')->get(),
-                'birth_certif' => Submission::where('user_id', $userId)->where('type', 'Akta Kelahiran')->get(),
-                'die_certif' => Submission::where('user_id', $userId)->where('type', 'Akta Kematian')->get(),
-                'moving_letter' => Submission::where('user_id', $userId)->where('type', 'Surat Pindah')->get(),
+                'ektp' => Submission::where('user_id', $userId)
+                                    ->where('type', 'KTP')
+                                    ->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at terbaru
+                                    ->get(),
+            //     'kk' => Submission::where('user_id', $userId)
+            //                       ->where('type', 'Kartu Keluarga')
+              //                     ->orderBy('created_at', 'desc')
+           //                        ->get(),
+          //       'birth_certif' => Submission::where('user_id', $userId)
+           //                                  ->where('type', 'Akta Kelahiran')
+          //                                   ->orderBy('created_at', 'desc')
+          //                                   ->get(),
+          //       'die_certif' => Submission::where('user_id', $userId)
+        //                                   ->where('type', 'Akta Kematian')
+          //                                 ->orderBy('created_at', 'desc')
+           //                                ->get(),
+           //      'moving_letter' => Submission::where('user_id', $userId)
+                //                               ->where('type', 'Surat Pindah')
+             //                                  ->orderBy('created_at', 'desc')
+         //                                       ->get(),
+              'kia' => Submission::where('user_id', $userId)
+                                    ->where('type', 'KIA')
+                                              ->orderBy('created_at', 'desc')
+                                             ->get(),
             ]
         ]);
     } catch (\Exception $e) {

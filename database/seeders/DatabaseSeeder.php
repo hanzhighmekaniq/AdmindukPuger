@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('123'),
             'role' => 'admin',
+            'nik' => '123',
+            'nokk' => '123123'
         ]);
         // Buat 20 user acak
         $users = User::factory(20)->create();

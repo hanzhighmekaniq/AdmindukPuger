@@ -19,7 +19,8 @@ class Submission extends Model
         "data",
         "name",
         "status",
-        "notes"
+        "notes",
+        "subtype"
     ];
 
 

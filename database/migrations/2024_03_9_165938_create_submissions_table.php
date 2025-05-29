@@ -23,6 +23,7 @@ return new class extends Migration
                 ->onUpdate('cascade');
             $table->enum('status', ['Disetujui', 'Ditolak', 'Diproses', 'Selesai'])->default('Diproses');
             $table->string('notes')->nullable();
+            $table->string('subtype')->nullable();
             $table->timestamps();
         });
     }

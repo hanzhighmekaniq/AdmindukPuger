@@ -25,10 +25,10 @@
 </head>
 
 <!-- Menampilkan status (pesan berhasil reset password) -->
-@if (session('status'))
+@if (session('success'))
     <div id="statusMessage"
         class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-green-500 text-white p-4 rounded-md shadow-md">
-        {{ session('status') }} <!-- Pesan reset password berhasil -->
+        {{ session('success') }} <!-- Pesan reset password berhasil -->
     </div>
 @endif
 
