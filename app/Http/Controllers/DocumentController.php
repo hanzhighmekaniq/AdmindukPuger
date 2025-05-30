@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
@@ -52,16 +54,23 @@ class DocumentController extends Controller
             'location' => 'required|file|mimes:pdf,doc,docx'
         ]);
 
-        $filePath = $request->file('location')->store('documents', 'public');
+        try {
+            // Simpan file di folder 'documents' pada disk 'public'
+            $filePath = $request->file('location')->store('documents', 'public');
 
-        Document::create([
-            'name' => $request->name,
-            'location' => $filePath, // Sesuai dengan model
-        ]);
+            Document::create([
+                'name' => $request->name,
+                'location' => $filePath,
+            ]);
 
+            return redirect()->route('document.index')->with('success', 'Dokumen berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            Log::error('Gagal menambahkan dokumen: ' . $e->getMessage());
 
-        return redirect()->route('document.index')->with('success', 'Dokumen berhasil ditambahkan!');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan dokumen.');
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -85,26 +94,40 @@ class DocumentController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'document_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'location' => 'nullable|file|mimes:pdf,doc,docx'
         ]);
 
-        $document = Document::findOrFail($id);
+        try {
+            $document = Document::findOrFail($id);
 
-        if ($request->hasFile('location')) {
-            // Hapus file lama
-            Storage::delete($document->location);
+            if ($request->hasFile('location')) {
+                // Hapus file lama
+                if ($document->location && Storage::exists($document->location)) {
+                    Storage::delete($document->location);
+                }
 
-            // Simpan file baru
-            $filePath = $request->file('location')->store('documents');
-            $document->location = $filePath;
+                // Simpan file baru
+                $filePath = $request->file('location')->store('documents');
+                $document->location = $filePath;
+            }
+
+            $document->name = $request->name;
+
+            $document->save();   // Simpan perubahan
+            $document->touch();  // Perbarui updated_at meskipun data tidak berubah
+
+            return redirect()->route('document.index')->with('success', 'Dokumen berhasil diperbarui!');
+        } catch (\Exception $e) {
+            // Log error jika dibutuhkan
+            Log::error('Gagal memperbarui dokumen: ' . $e->getMessage());
+
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui dokumen.');
         }
-
-        $document->name = $request->document_name;
-        $document->save();
-
-        return redirect()->route('document.index')->with('success', 'Dokumen berhasil diperbarui!');
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.

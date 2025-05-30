@@ -264,7 +264,7 @@
                 <div class="pt-4">
                     <p class="text-gray-700">Apakah Anda yakin ingin menghapus dokumen ini? Tindakan ini tidak dapat
                         dibatalkan.</p>
-                    <form id="form-delete-document" action="#" method="POST" class="mt-4">
+                    <form id="form-delete-document" action="{{ route('document.destroy', $document->id) }}" method="POST" class="mt-4">
                         @csrf
                         @method('DELETE')
                         <div class="flex justify-end space-x-2">
