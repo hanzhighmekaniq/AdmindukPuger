@@ -519,15 +519,32 @@
                 <!-- Modal Body -->
                 <div class="p-4 space-y-4 max-h-96 overflow-y-auto">
                     @if (!empty($info->data))
-                        @foreach ($info->data as $label => $image)
-                            <div class="flex items-center gap-4 p-2 border border-gray-200 rounded-lg">
-                                <!-- Tambahkan event untuk membuka modal gambar -->
-                                <img src="{{ asset('storage/' . $image) }}" alt="{{ $label }}"
-                                    class="w-16 h-16 rounded-lg border border-gray-300 shadow-sm object-cover cursor-pointer"
-                                    onclick="openImageModal('{{ asset('storage/' . $image) }}')">
-                                <p class="text-gray-800 text-sm font-medium">{{ $label }}</p>
-                            </div>
-                        @endforeach
+                        @foreach ($info->data as $label => $value)
+    @php
+        $extension = pathinfo($value, PATHINFO_EXTENSION);
+        $isImage = in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp']);
+    @endphp
+
+    <div class="flex items-center gap-4 p-2 border border-gray-200 rounded-lg">
+        @if ($isImage)
+            <img src="{{ asset('storage/' . $value) }}" alt="{{ $label }}"
+                class="w-16 h-16 rounded-lg border border-gray-300 shadow-sm object-cover cursor-pointer"
+                onclick="openImageModal('{{ asset('storage/' . $value) }}')">
+        @else
+            <div class="w-16 h-16 rounded-lg border border-gray-300 shadow-sm flex items-center justify-center bg-gray-100 text-gray-500 text-sm" hidden>
+                
+            </div>
+        @endif
+
+        <div>
+            <p class="text-gray-800 text-sm font-medium">{{ $label }}</p>
+            @if (!$isImage)
+                <p class="text-gray-600 text-sm">{{ $value }}</p>
+            @endif
+        </div>
+    </div>
+@endforeach
+
                     @else
                         <p class="text-gray-500 text-center">Tidak ada data yang tersedia.</p>
                     @endif
