@@ -22,7 +22,7 @@ class SubmissionController extends Controller
             "kk" => "required|file|max:20480", // 20MB
             "user_id" => "required",
             "name" => "required",
-          
+
         ]);
         $kkPath = null;
 
@@ -32,6 +32,8 @@ class SubmissionController extends Controller
 
         $jsonData = [
             'kk' => $kkPath,
+            'nik' => $req->nik,
+            'nokk' => $req->nokk
         ];
 
         $submission = Submission::create([
@@ -80,6 +82,8 @@ public function lostektp(Request $req)
         $jsonData = [
             'kk' => $kkPath,
             'lostletter' => $form,
+            'nik' => $req->nik,
+            'nokk' => $req->nokk
         ];
 
         $submission = Submission::create([
@@ -125,6 +129,8 @@ public function damagedektp(Request $req)
 
         $jsonData = [
             'kk' => $kkPath,
+            'nik' => $req->nik,
+            'nokk' => $req->nokk
         ];
 
         $submission = Submission::create([
@@ -380,7 +386,7 @@ public function kiaunder5(Request $req)
         $form = null;
         $akta = null;
         $ktp = null;
-        
+
         if ($req->hasFile('kk')) {
             $kkPath = $req->file('kk')->store('images', 'public');
         }
@@ -433,7 +439,7 @@ public function kia5(Request $req)
         $form = null;
         $akta = null;
         $ktp = null;
-        
+
         if ($req->hasFile('kk')) {
             $kkPath = $req->file('kk')->store('images', 'public');
         }
