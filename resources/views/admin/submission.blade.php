@@ -199,6 +199,10 @@
                                 <p class="text-sm text-gray-900">{{ $update->name }}</p>
                             </div>
                             <div>
+                                <label class="block text-sm font-medium text-gray-700">NIK</label>
+                                <p class="text-sm text-gray-900">{{ $update->data['nik'] ?? '-'}}</p>
+                            </div>
+                            <div>
                                 <label class="block text-sm font-medium text-gray-700">Jenis</label>
                                 <p class="text-sm text-gray-900">{{ $update->type }}</p>
                             </div>
@@ -318,19 +322,20 @@
         notesText.classList.remove('hidden');
         notesTextarea.classList.add('hidden');
         notesTextarea.disabled = true;
-
-
-
         dateInput.addEventListener('input', function () {
             updateApprovalText(id, type);
         });
-    } else {
+    }else {
         // Selain KK dan KTP
         notesText.classList.add('hidden');
         notesTextarea.classList.remove('hidden');
         notesTextarea.disabled = false;
         notesHiddenInput.value = notesTextarea.value;
         dateField.classList.add('hidden'); // Gak perlu tanggal
+         // Update hidden input ketika textarea diubah
+    notesTextarea.addEventListener('input', function() {
+        notesHiddenInput.value = notesTextarea.value;
+    });
     }
 } else if (status === 'Selesai') {
     notesField.classList.remove('hidden');

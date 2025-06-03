@@ -4,7 +4,7 @@
             <div>
                 <p class="text-3xl poppins-bold pb-1">Detail User</p>
             </div>
-            <a href="{{ route('user.index') }}" class="px-6 py-2 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-800">Kembali</a>
+            <a href="{{ route('user.index') }}" class="px-6 py-2 bg-blue-700 text-black rounded-lg shadow hover:bg-gray-800">Kembali</a>
         </div>
         <div class="bg-white rounded-xl shadow p-6 mt-4">
             <table class="w-full text-sm text-left text-gray-700 mb-6">
@@ -44,24 +44,25 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th class="px-4 py-3">ID</th>
+                                <th class="px-4 py-3">Pemohon</th>
                                 <th class="px-4 py-3">Layanan</th>
-                                <th class="px-4 py-3">Status</th>
                                 <th class="px-4 py-3">Tanggal Pengajuan</th>
-                                <th class="px-4 py-3">Nomor Referensi</th>
+                                <th class="px-4 py-3">Status</th>
+                            
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($submissions as $submission)
                                 <tr class="bg-white border-b border-gray-200">
                                     <td class="px-4 py-2">{{ $submission->id }}</td>
+                                    <td class="px-4 py-2">{{ $submission->name }}</td>
                                     <td class="px-4 py-2">{{ $submission->type }}</td>
+                                    <td class="px-4 py-2">{{ $submission->created_at->format('Y-m-d') }}</td>
                                     <td class="px-4 py-2">
                                         <span class="px-2 py-1 rounded text-xs font-semibold {{ $submission->status == 'Diproses' ? 'bg-yellow-200 text-yellow-800' : ($submission->status == 'Disetujui' ? 'bg-blue-200 text-blue-800' : ($submission->status == 'Selesai' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800')) }}">
                                             {{ $submission->status }}
                                         </span>
                                     </td>
-                                    <td class="px-4 py-2">{{ $submission->created_at->format('Y-m-d') }}</td>
-                                    <td class="px-4 py-2">REF{{ str_pad($submission->id, 6, '0', STR_PAD_LEFT) }}</td>
                                 </tr>
                             @empty
                                 <tr>

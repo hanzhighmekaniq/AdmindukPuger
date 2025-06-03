@@ -87,12 +87,6 @@
                                             <img class="w-auto h-6 lg:h-6 object-contain"
                                                 src="{{ asset('img/info-icon.png') }}" alt="Detail">
                                         </a>
-                                        <button type="button" data-modal-target="modal-edit-user-{{ $users->id }}"
-                                            data-modal-toggle="modal-edit-user-{{ $users->id }}"
-                                            class="p-1 flex-shrink-0">
-                                            <img class="w-auto h-6 lg:h-7 object-contain"
-                                                src="{{ asset('img/edit-icon.png') }}" alt="Edit">
-                                        </button>
                                         <button type="button"
                                             data-modal-target="modal-delete-user-{{ $users->id }}"
                                             data-modal-toggle="modal-delete-user-{{ $users->id }}"

@@ -23,7 +23,6 @@ class Submission extends Model
         "subtype"
     ];
 
-
     public function user(): BelongsTo
 
     {
