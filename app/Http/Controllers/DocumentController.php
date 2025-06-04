@@ -108,7 +108,7 @@ class DocumentController extends Controller
                 }
 
                 // Simpan file baru
-                $filePath = $request->file('location')->store('documents');
+                $filePath = $request->file('location')->store('documents','public');
                 $document->location = $filePath;
             }
 

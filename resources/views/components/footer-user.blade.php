@@ -65,7 +65,7 @@
             </div>
             <hr class="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
             <div class="flex justify-center items-center ">
-                <span class="text-sm text-gray-300 sm:text-center ">@copyright 2025 admindukpolije.com
+                <span class="text-sm text-gray-300 sm:text-center ">@copyright 2025 admindukpuger.com
                 </span>
             </div>
         </div>

@@ -199,6 +199,10 @@
                                 <p class="text-sm text-gray-900">{{ $update->name }}</p>
                             </div>
                             <div>
+                                <label class="block text-sm font-medium text-gray-700">NIK</label>
+                                <p class="text-sm text-gray-900">{{ $update->data['nik'] ?? '-'}}</p>
+                            </div>
+                            <div>
                                 <label class="block text-sm font-medium text-gray-700">Jenis</label>
                                 <p class="text-sm text-gray-900">{{ $update->type }}</p>
                             </div>
@@ -265,7 +269,7 @@
                                     <ul class="space-y-1">
                                         <li class="cursor-pointer w-auto text-red-600 hover:underline"
                                             onclick="setNotes({{ $update->id }}, 'Dokumen tidak lengkap.')">📌
-                                            Dokumen tidak lengkap.</li>
+                                            Dokumen yang diunggah kurang jelas.</li>
                                         <li class="cursor-pointer w-auto text-red-600 hover:underline"
                                             onclick="setNotes({{ $update->id }}, 'Data yang diberikan tidak valid.')">
                                             📌 Data yang diberikan tidak valid.</li>
@@ -318,19 +322,20 @@
         notesText.classList.remove('hidden');
         notesTextarea.classList.add('hidden');
         notesTextarea.disabled = true;
-
-
-
         dateInput.addEventListener('input', function () {
             updateApprovalText(id, type);
         });
-    } else {
+    }else {
         // Selain KK dan KTP
         notesText.classList.add('hidden');
         notesTextarea.classList.remove('hidden');
         notesTextarea.disabled = false;
         notesHiddenInput.value = notesTextarea.value;
         dateField.classList.add('hidden'); // Gak perlu tanggal
+         // Update hidden input ketika textarea diubah
+    notesTextarea.addEventListener('input', function() {
+        notesHiddenInput.value = notesTextarea.value;
+    });
     }
 } else if (status === 'Selesai') {
     notesField.classList.remove('hidden');
@@ -384,8 +389,8 @@
             notesText.innerText = `Dokumen dapat diambil pada tanggal ${selectedDate}`;
             notesHiddenInput.value = `Dokumen dapat diambil pada tanggal ${selectedDate}`;
         } else if (type === 'KTP') {
-            notesText.innerText = `Silahkan ambil di kantor kecamatan pada tanggal ${selectedDate}`;
-            notesHiddenInput.value = `Silahkan ambil di kantor kecamatan pada tanggal ${selectedDate}`;
+            notesText.innerText = `Silahkan datang di kantor kecamatan pada tanggal ${selectedDate}`;
+            notesHiddenInput.value = `Silahkan datang di kantor kecamatan pada tanggal ${selectedDate}`;
         }
     }
 }

@@ -89,68 +89,65 @@ class SubmissionAdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
-        try {
-            $request->validate([
-                'status' => 'required|in:Disetujui,Ditolak,Diproses,Selesai',
-                'notes' => 'nullable|string|max:255',
-                'date' => 'nullable|date',
-            ]);
-
-            $submission = Submission::findOrFail($id);
-            $submission->status = $request->status;
-
-            if ($request->status === 'Ditolak') {
-                $submission->notes = $request->notes;
-            } elseif ($request->status === 'Disetujui') {
-                if ($submission->type === 'KK') {
-                    if ($request->date) {
-                        $formattedDate = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
-                        $submission->notes = "Dokumen dapat diambil pada tanggal $formattedDate";
-                    } else {
-                        $submission->notes = null;
-                    }
-                }elseif ($submission->type === "KIA") {
-                        if($submission->subtype === "KIA Sudah Umur 5 Tahun"){
-                            $submission->notes = "Silahkan datang ke kantor untuk melakukan perekaman biometrik";
-                        }else{
-                            $submission->notes = $request->notes;
-                        }
-                }
-                elseif ($submission->type === 'KTP') {
-                    if ($request->date) {
-                        $kekantor = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
-                        $submission->notes = "Silahkan Datang ke kantor kecamatan untuk perekaman Biometrik pada tanggal $kekantor";
-                    } else {
-                        $submission->notes = null;
-                    }
-
-                }else {
-                     $submission->notes = "Dokumen dapat diambil di kantor kecamatan";
-
-                }
-            } elseif ($request->status === 'Selesai') {
-                // Gunakan input notes dari form untuk semua jenis dokumen
-                // Jika notes kosong, berikan nilai default
-                if (!empty($request->notes)) {
-                    $submission->notes = $request->notes;
+   public function update(Request $request, $id)
+{
+    try {
+        $request->validate([
+            'status' => 'required|in:Disetujui,Ditolak,Diproses,Selesai',
+            'notes' => 'nullable|string|max:255',
+            'date' => 'nullable|date',
+        ]);
+        
+        $submission = Submission::findOrFail($id);
+        $submission->status = $request->status;
+        
+        if ($request->status === 'Ditolak') {
+            $submission->notes = $request->notes;
+        } elseif ($request->status === 'Disetujui') {
+            if ($submission->type === 'KK') {
+                if ($request->date) {
+                    $formattedDate = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
+                    $submission->notes = "Dokumen dapat diambil pada tanggal $formattedDate";
                 } else {
-                    $submission->notes = $submission->type === 'KK' ?
-                        "Dokumen telah di ambil oleh (Tidak diketahui)" :
-                        "Silahkan ambil di kantor kecamatan";
+                    $submission->notes = null;
+                }
+            } elseif ($submission->type === "KIA") {
+                if ($submission->subtype === "KIA Sudah Umur 5 Tahun") {
+                    $submission->notes = "Silahkan datang ke kantor untuk melakukan perekaman biometrik";
+                } else {
+                    // Untuk KIA Belum 5 Tahun atau subtype lainnya, ambil dari request
+                    $submission->notes = $request->notes ?? 'Dokumen dapat diambil di kantor kecamatan';
+                }
+            } elseif ($submission->type === 'KTP') {
+                if ($request->date) {
+                    $kekantor = \Carbon\Carbon::parse($request->date)->translatedFormat('d F Y');
+                    $submission->notes = "Silahkan Datang ke kantor kecamatan untuk perekaman Biometrik pada tanggal $kekantor";
+                } else {
+                    $submission->notes = null;
                 }
             } else {
-                $submission->notes = null;
+                $submission->notes = "Dokumen dapat diambil di kantor kecamatan";
             }
-
-            $submission->save();
-
-            return redirect()->back()->with('success', 'Status berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        } elseif ($request->status === 'Selesai') {
+            // Gunakan input notes dari form untuk semua jenis dokumen
+            if (!empty($request->notes)) {
+                $submission->notes = $request->notes;
+            } else {
+                $submission->notes = $submission->type === 'KK' ?
+                    "Dokumen telah di ambil oleh (Tidak diketahui)" :
+                    "Silahkan ambil di kantor kecamatan";
+            }
+        } else {
+            $submission->notes = null;
         }
+        
+        $submission->save();
+        
+        return redirect()->back()->with('success', 'Status berhasil diperbarui.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
+}
 
 
 

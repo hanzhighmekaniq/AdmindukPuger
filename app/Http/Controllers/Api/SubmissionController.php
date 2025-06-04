@@ -33,7 +33,7 @@ class SubmissionController extends Controller
         $jsonData = [
             'kk' => $kkPath,
             'nik' => $req->nik,
-            'nokk' => $req->nokk
+          //  'nokk' => $req->nokk,
         ];
 
         $submission = Submission::create([
@@ -83,7 +83,7 @@ public function lostektp(Request $req)
             'kk' => $kkPath,
             'lostletter' => $form,
             'nik' => $req->nik,
-            'nokk' => $req->nokk
+        //    'nokk' => $req->nokk
         ];
 
         $submission = Submission::create([
@@ -130,7 +130,7 @@ public function damagedektp(Request $req)
         $jsonData = [
             'kk' => $kkPath,
             'nik' => $req->nik,
-            'nokk' => $req->nokk
+          //  'nokk' => $req->nokk
         ];
 
         $submission = Submission::create([
@@ -399,7 +399,8 @@ public function kiaunder5(Request $req)
         $jsonData = [
             'kk' => $kkPath,
             'akta' => $akta,
-            'ktp' => $ktp
+            'ktp' => $ktp,
+            'nik' => $req->nik
         ];
 
         $submission = Submission::create([
@@ -452,7 +453,8 @@ public function kia5(Request $req)
         $jsonData = [
             'kk' => $kkPath,
             'akta' => $akta,
-            'ktp' => $ktp
+            'ktp' => $ktp,
+            'nik' => $req->nik
         ];
 
         $submission = Submission::create([
