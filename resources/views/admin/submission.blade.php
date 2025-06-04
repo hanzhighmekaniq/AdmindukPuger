@@ -269,7 +269,7 @@
                                     <ul class="space-y-1">
                                         <li class="cursor-pointer w-auto text-red-600 hover:underline"
                                             onclick="setNotes({{ $update->id }}, 'Dokumen tidak lengkap.')">📌
-                                            Dokumen tidak lengkap.</li>
+                                            Dokumen yang diunggah kurang jelas.</li>
                                         <li class="cursor-pointer w-auto text-red-600 hover:underline"
                                             onclick="setNotes({{ $update->id }}, 'Data yang diberikan tidak valid.')">
                                             📌 Data yang diberikan tidak valid.</li>
@@ -389,8 +389,8 @@
             notesText.innerText = `Dokumen dapat diambil pada tanggal ${selectedDate}`;
             notesHiddenInput.value = `Dokumen dapat diambil pada tanggal ${selectedDate}`;
         } else if (type === 'KTP') {
-            notesText.innerText = `Silahkan ambil di kantor kecamatan pada tanggal ${selectedDate}`;
-            notesHiddenInput.value = `Silahkan ambil di kantor kecamatan pada tanggal ${selectedDate}`;
+            notesText.innerText = `Silahkan datang di kantor kecamatan pada tanggal ${selectedDate}`;
+            notesHiddenInput.value = `Silahkan datang di kantor kecamatan pada tanggal ${selectedDate}`;
         }
     }
 }

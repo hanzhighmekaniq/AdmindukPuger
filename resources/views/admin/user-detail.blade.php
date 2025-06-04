@@ -45,6 +45,7 @@
                             <tr>
                                 <th class="px-4 py-3">ID</th>
                                 <th class="px-4 py-3">Pemohon</th>
+                                <th class="px-4 py-3">NIK</th>
                                 <th class="px-4 py-3">Layanan</th>
                                 <th class="px-4 py-3">Tanggal Pengajuan</th>
                                 <th class="px-4 py-3">Status</th>
@@ -56,6 +57,11 @@
                                 <tr class="bg-white border-b border-gray-200">
                                     <td class="px-4 py-2">{{ $submission->id }}</td>
                                     <td class="px-4 py-2">{{ $submission->name }}</td>
+                                    @php
+    $data = json_decode($submission->data, true);
+@endphp
+
+<td class="px-4 py-2">{{ $data['nik'] ?? '-' }}</td>
                                     <td class="px-4 py-2">{{ $submission->type }}</td>
                                     <td class="px-4 py-2">{{ $submission->created_at->format('Y-m-d') }}</td>
                                     <td class="px-4 py-2">

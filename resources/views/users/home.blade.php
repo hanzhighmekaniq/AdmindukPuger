@@ -10,7 +10,7 @@
                     <!-- Bagian Kiri -->
                     <div class="space-y-10 md:space-y-16  sm:pt-10">
                         <h1 class="text-4xl md:text-5xl font-bold poppins-bold leading-tight ">
-                            Urus Administrasi Kependudukan dengan Mudah & Cepat!
+                            Pantau Pengajuanmu Dari Rumah dengan Mudah & Nyaman!
                         </h1>
                         <h2 class="text-2xl md:text-3xl poppins-regular leading-relaxed ">
                             Layanan online untuk pengurusan administrasi kependudukan di Puger, tanpa ribet & tanpa
@@ -40,31 +40,30 @@
                     </div>
                     <div class="col-span-7 flex items-center">
                         <div class="py-4 md:py-20 space-y-10 ">
-                            <p class="text-4xl md:text-5xl poppins-bold">Visi & Misi Kecamatan Puger</p>
-                            <p class="text-2xl md:text-4xl ">Mewujudkan Kecamatan Puger yang maju, mandiri, dan
-                                sejahtera
-                                berbasis potensi lokal dan
-                                berwawasan luas.</p>
+                            <p class="text-2xl md:text-4xl ">Terwujudnya Pelayanan Prima Yang Berkualitas.</p>
                             <div class="space-y-10">
                                 <div class="flex items-center gap-2">
                                     <img src="{{ asset('img/icon-centang.png') }}" alt=""
                                         class="w-auto h-8 md:h-10">
-                                    <p class="text-base md:text-2xl">Menyediakan layanan administrasi kependudukan yang
-                                        cepat, mudah.
+                                    <p class="text-base md:text-2xl">Meningkatkan kualitas SDM yang profesional.
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <img src="{{ asset('img/icon-centang.png') }}" alt=""
                                         class="w-auto h-8 md:h-10">
-                                    <p class="text-base md:text-2xl">Menyediakan layanan administrasi kependudukan yang
-                                        cepat, mudah.
+                                    <p class="text-base md:text-2xl">Memberikan pelayanan prima kepada masyarakat.
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <img src="{{ asset('img/icon-centang.png') }}" alt=""
                                         class="w-auto h-8 md:h-10">
-                                    <p class="text-base md:text-2xl">Menyediakan layanan administrasi kependudukan yang
-                                        cepat, mudah.
+                                    <p class="text-base md:text-2xl">Mengembangkan sarana dan prasarana untuk meningkatkan pelayanan.
+                                    </p>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <img src="{{ asset('img/icon-centang.png') }}" alt=""
+                                        class="w-auto h-8 md:h-10">
+                                    <p class="text-base md:text-2xl">Menciptakan lingkungan kerja yang aman dan nyaman sehingga menciptakan suasana yang kondusif untuk meningkatkan pelayanan.
                                     </p>
                                 </div>
 
@@ -82,14 +81,10 @@
             <div class="container">
                 <div class="space-y-10">
                     <div class="flex justify-center items-center">
-                        <p class="text-3xl lg:text-5xl poppins-bold text-center">Tentang Kecamatan</p>
+                        <p class="text-3xl lg:text-5xl poppins-bold text-center">Visi</p>
                     </div>
                     <div class="flex justify-center items-center lg:px-40">
-                        <p class=" text-xl lg:text-4xl text-center">Kecamatan Puger merupakan salah satu kecamatan di
-                            Kabupaten
-                            Jember
-                            yang memiliki
-                            peran penting dalam administrasi kependudukan dan pelayanan masyarakat.</p>
+                        <p class=" text-xl lg:text-4xl text-center">Terwujudnya Pelayanan Prima yang Berkualitas</p>
                     </div>
                 </div>
                 <div class="pt-20 lg:px-10">
@@ -140,7 +135,6 @@
                                     berprofesi sebagai nelayan, petani,</p>
                                 <div class="flex justify-center">
                                     <div class="bg-[#06275A] rounded-xl">
-
                                         <p class="text-white px-4 py-2">Learn More</p>
                                     </div>
                                 </div>
